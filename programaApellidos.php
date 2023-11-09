@@ -57,6 +57,35 @@ $coleccionPartidas= [$partida1,$partida2,$partida3,$partida4,$partida5,$partida6
 return $coleccionPartidas;
 } 
 
+//**Esta funcion le visualiza al usuario el menu de seleccion para poder jugar (tiene 7 modos y el 8 es el exit), si el usuario ingresa un numero menor a 1 y mayor a 9 se repite el menu hasta que el usuario ingrese un numero */
+function seleccionarOpcion(){
+    
+    $menu="
+    1) Jugar al wordix con una palabra elegida \n
+    2) Jugar al wordix con una palara aleatoria\n
+    3) Mostrar una partida\n
+    4) Mostrar la primer partida ganadora\n
+    5) Mostrar resumen del jugador\n
+    6) Mostrar listado de partidas ordenads por jugador y por palabra\n
+    7) Agregar una palabra de 5 letras a wordix\n
+    8) Salir\n
+    ";
+
+    echo $menu;
+    $numeroOpcionMenu=trim(fgets(STDIN));
+
+    while($numeroOpcionMenu<1 && $numeroOpcionMenu>8){
+        echo "Numero invalido ingrese un numero entre 1-8";
+        echo $menu;
+        $numeroOpcionMenu=trim(fgets(STDIN));
+    }
+
+    return $numeroOpcionMenu;
+    }
+
+//*MODULOS 4 Y 5 en el archivo WORDIX.php**//
+
+
 /**************************************/
 /*********** PROGRAMA PRINCIPAL *******/
 /**************************************/
