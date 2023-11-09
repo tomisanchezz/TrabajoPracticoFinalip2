@@ -6,7 +6,7 @@ include_once("wordix.php");
 /**************************************/
 /***** DATOS DE LOS INTEGRANTES *******/
 /**************************************/
-
+// Sanchez, TOMAS. FAI-4494. TUDW. tomas.sanchez2004@est.fi.uncoma.edu.ar. tomisanchezz.
 /* Apellido, Nombre. Legajo. Carrera. mail. Usuario Github */
 /* ****COMPLETAR***** */
 
