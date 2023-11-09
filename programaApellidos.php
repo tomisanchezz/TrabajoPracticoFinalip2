@@ -36,6 +36,10 @@ function cargarColeccionPalabras()
 
 /* ****COMPLETAR CON TODAS LAS FUNCIONES***** */
 
+/**
+ * Este modulo va a funcionar para crear las 10 partidas minimas para el juego, donde partidas1-10 son las jugadas dentro de un array multidimensional $coleccionPartidas
+ * @return array
+ * */ 
 function cargarPartidas(){
 $partida1=["palabraWordix "=> "TINTO" , "jugador" => "Tomas", "intentos"=> 1, "puntaje" => 14];
 $partida2=["palabraWordix "=> "MOUSE" , "jugador" => "Tomas", "intentos"=> 2, "puntaje" => 13];
