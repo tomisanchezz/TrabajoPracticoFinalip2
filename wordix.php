@@ -27,7 +27,10 @@ const ESTADO_LETRA_PERTENECE = "pertenece";
 /**************************************/
 
 /**
- *  ****COMPLETAR*****
+ * Este modulo verifica que el usuario ingrese un número y no una letra
+ * @param float $min
+ * @param float $max
+ * @return float
  */
 function solicitarNumeroEntre($min, $max)
 {
@@ -120,7 +123,8 @@ function escribirSegunEstado($texto, $estado)
 }
 
 /**
- * ****COMPLETAR*****
+ * Escribe un mensaje de bienvenida al usuario
+ * @param string $usuario
  */
 function escribirMensajeBienvenida($usuario)
 {
@@ -133,7 +137,9 @@ function escribirMensajeBienvenida($usuario)
 
 
 /**
- * ****COMPLETAR*****
+ * Modulo que obtiene la longitud de nros de carácteres de $cadena y comprueba que todas sean letras
+ * @param int $cadena
+ * @return boolean
  */
 function esPalabra($cadena)
 {
@@ -346,6 +352,7 @@ function obtenerPuntajeWordix()  /* ****COMPLETAR***** parámetros formales nece
 function jugarWordix($palabraWordix, $nombreUsuario)
 {
     /*Inicialización*/
+    //array $arregloDeIntentosWordix, $teclado, int $nroIntento
     $arregloDeIntentosWordix = [];
     $teclado = iniciarTeclado();
     escribirMensajeBienvenida($nombreUsuario);
