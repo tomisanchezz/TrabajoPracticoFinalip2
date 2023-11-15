@@ -8,6 +8,7 @@ include_once("wordix.php");
 /**************************************/
 // Sanchez, TOMAS. FAI-4494. TUDW. tomas.sanchez2004@est.fi.uncoma.edu.ar. tomisanchezz.
 // Pinedo, Emanuel. FAI-4871. TUDW emanuel.pinedo@est.fi.uncoma.edu.ar.
+// Javier, Castillo. FAI-4936. TUDW javier.castillo@est.fi.uncoma.edu.ar. JaviCast03
 /* Apellido, Nombre. Legajo. Carrera. mail. Usuario Github */
 /* ****COMPLETAR***** */
 
