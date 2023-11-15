@@ -127,3 +127,4 @@ do {
     }
 } while ($opcion != X);
 */
+echo seleccionarOpcion();
