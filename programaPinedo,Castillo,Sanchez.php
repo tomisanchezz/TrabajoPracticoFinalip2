@@ -42,22 +42,23 @@ function cargarColeccionPalabras()
 
 /**
  * Modulo 2
- * Este modulo va a funcionar para crear las 10 partidas minimas para el juego, donde partidas1-10 son las jugadas dentro de un array multidimensional $coleccionPartidas
+ * Este modulo va a funcionar para crear las 10 partidas minimas para el juego, donde $partida es un araray asociativo con los juegos prejugados donde luego a partida se lo cambia por coleccion de partidas y lo retorna.
  * @return array
  * */ 
 function cargarPartidas(){
-$partida1=["palabraWordix "=> "TINTO" , "jugador" => "Valentina", "intentos"=> 1, "puntaje" => 14];
-$partida2=["palabraWordix "=> "MOUSE" , "jugador" => "Abril", "intentos"=> 2, "puntaje" => 13];
-$partida3=["palabraWordix "=> "PERRO" , "jugador" => "Maria", "intentos"=> 4, "puntaje" => 13];
-$partida4=["palabraWordix "=> "ARBOL" , "jugador" => "Pedro", "intentos"=> 3, "puntaje" => 13];
-$partida5=["palabraWordix "=> "GATOS" , "jugador" => "Tomas", "intentos"=> 6, "puntaje" => 0];
-$partida6=["palabraWordix "=> "VERDE" , "jugador" => "Alejandro", "intentos"=> 3, "puntaje" => 14];
-$partida7=["palabraWordix "=> "MELON" , "jugador" => "Martin", "intentos"=> 2, "puntaje" => 15];
-$partida8=["palabraWordix "=> "HUEVO" , "jugador" => "Javie", "intentos"=> 5, "puntaje" => 9];
-$partida9=["palabraWordix "=> "GOTAS" , "jugador" => "Emanuel", "intentos"=> 2, "puntaje" => 15];
-$partida10=["palabraWordix "=> "MUJER" , "jugador" => "Tomas", "intentos"=> 0, "puntaje" => 0];
 
-$coleccionPartidas= [$partida1,$partida2,$partida3,$partida4,$partida5,$partida6,$partida7,$partida8,$partida9,$partida10];
+$partida[0]=["palabraWordix "=> "TINTO" , "jugador" => "Valentina", "intentos"=> 1, "puntaje" => 14];
+$partida[1]=["palabraWordix "=> "TINTO" , "jugador" => "Valentina", "intentos"=> 1, "puntaje" => 14];
+$partida[2]=["palabraWordix "=> "PERRO" , "jugador" => "Maria", "intentos"=> 4, "puntaje" => 13];
+$partida[3]=["palabraWordix "=> "ARBOL" , "jugador" => "Pedro", "intentos"=> 3, "puntaje" => 13];
+$partida[4]=["palabraWordix "=> "GATOS" , "jugador" => "Tomas", "intentos"=> 6, "puntaje" => 0];
+$partida[5]=["palabraWordix "=> "VERDE" , "jugador" => "Alejandro", "intentos"=> 3, "puntaje" => 14];
+$partida[6]=["palabraWordix "=> "MELON" , "jugador" => "Martin", "intentos"=> 2, "puntaje" => 15];
+$partida[7]=["palabraWordix "=> "HUEVO" , "jugador" => "Javie", "intentos"=> 5, "puntaje" => 9];
+$partida[8]=["palabraWordix "=> "GOTAS" , "jugador" => "Emanuel", "intentos"=> 2, "puntaje" => 15];
+$partida[9]=["palabraWordix "=> "MUJER" , "jugador" => "Tomas", "intentos"=> 0, "puntaje" => 0];
+
+$coleccionPartidas= $partida;
 
 return $coleccionPartidas;
 } 
