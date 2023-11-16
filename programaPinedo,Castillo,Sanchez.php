@@ -86,6 +86,12 @@ function seleccionarOpcion(){
 
 //*MODULOS 4 Y 5 en el archivo WORDIX.php**//
 
+function agregarPalabra(){
+    
+}
+
+
+
 
 /**************************************/
 /*********** PROGRAMA PRINCIPAL *******/
