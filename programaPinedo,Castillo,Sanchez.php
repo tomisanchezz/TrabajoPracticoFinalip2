@@ -42,25 +42,26 @@ function cargarColeccionPalabras()
 
 /**
  * Modulo 2
- * Este modulo va a funcionar para crear las 10 partidas minimas para el juego, donde $partida es un araray asociativo con los juegos prejugados donde luego a partida se lo cambia por coleccion de partidas y lo retorna.
+ * Este modulo va a funcionar para crear las 10 partidas minimas para el juego, donde $partida es un araray indexado con los juegos prejugados donde luego a partida se lo cambia por coleccion de partidas y lo retorna.
+ * //array $partida[] es un array indexado.
  * @return array
  * */ 
 function cargarPartidas(){
 
-$partida[0]=["palabraWordix "=> "TINTO" , "jugador" => "Valentina", "intentos"=> 1, "puntaje" => 14];
-$partida[1]=["palabraWordix "=> "TINTO" , "jugador" => "Valentina", "intentos"=> 1, "puntaje" => 14];
-$partida[2]=["palabraWordix "=> "PERRO" , "jugador" => "Maria", "intentos"=> 4, "puntaje" => 13];
-$partida[3]=["palabraWordix "=> "ARBOL" , "jugador" => "Pedro", "intentos"=> 3, "puntaje" => 13];
-$partida[4]=["palabraWordix "=> "GATOS" , "jugador" => "Tomas", "intentos"=> 6, "puntaje" => 0];
-$partida[5]=["palabraWordix "=> "VERDE" , "jugador" => "Alejandro", "intentos"=> 3, "puntaje" => 14];
-$partida[6]=["palabraWordix "=> "MELON" , "jugador" => "Martin", "intentos"=> 2, "puntaje" => 15];
-$partida[7]=["palabraWordix "=> "HUEVO" , "jugador" => "Javie", "intentos"=> 5, "puntaje" => 9];
-$partida[8]=["palabraWordix "=> "GOTAS" , "jugador" => "Emanuel", "intentos"=> 2, "puntaje" => 15];
-$partida[9]=["palabraWordix "=> "MUJER" , "jugador" => "Tomas", "intentos"=> 0, "puntaje" => 0];
+    $partida = array(
+        array("palabraWordix" => "TINTO", "jugador" => "Valentina", "intentos" => 1, "puntaje" => 14),
+        array("palabraWordix" => "TINTO", "jugador" => "Valentina", "intentos" => 1, "puntaje" => 14),
+        array("palabraWordix" => "PERRO", "jugador" => "Maria", "intentos" => 4, "puntaje" => 13),
+        array("palabraWordix" => "ARBOL", "jugador" => "Pedro", "intentos" => 3, "puntaje" => 13),
+        array("palabraWordix" => "GATOS", "jugador" => "Tomas", "intentos" => 6, "puntaje" => 0),
+        array("palabraWordix" => "VERDE", "jugador" => "Alejandro", "intentos" => 3, "puntaje" => 14),
+        array("palabraWordix" => "MELON", "jugador" => "Martin", "intentos" => 2, "puntaje" => 15),
+        array("palabraWordix" => "HUEVO", "jugador" => "Javie", "intentos" => 5, "puntaje" => 9),
+        array("palabraWordix" => "GOTAS", "jugador" => "Emanuel", "intentos" => 2, "puntaje" => 15),
+        array("palabraWordix" => "MUJER", "jugador" => "Tomas", "intentos" => 0, "puntaje" => 0)
+    );
 
-$coleccionPartidas= $partida;
-
-return $coleccionPartidas;
+    return $partida;
 } 
 
 /** 
@@ -86,7 +87,7 @@ function seleccionarOpcion(){
     echo $menu;
     $numeroOpcionMenu=trim(fgets(STDIN));
 
-    while($numeroOpcionMenu<1 && $numeroOpcionMenu>8){
+    while($numeroOpcionMenu<1 || $numeroOpcionMenu>8){
         echo "Numero invalido ingrese un numero entre 1-8";
         echo $menu;
         $numeroOpcionMenu=trim(fgets(STDIN));
@@ -131,6 +132,29 @@ function seleccionarOpcion(){
     return strtolower($nombreIngresado);
  }
 
+/**
+ * Modulo 11
+ * 
+ */
+
+ function cmp($a, $b) {
+   // Primero, compara por el nombre del jugador
+    $resultado = strcasecmp($a["jugador"], $b["jugador"]);
+
+    // Si los nombres son iguales, compara por la palabra
+    if ($resultado == 0) {
+        $resultado = strcasecmp($a["palabraWordix"], $b["palabraWordix"]);
+    }
+
+$coleccionPartidas = cargarPartidas();
+// Ordenar la colección de partidas usando uasort y la función de comparación
+uasort($coleccionPartidas, "cmp");
+// Mostrar el resultado usando print_r, solo nombre y palabra
+foreach ($coleccionPartidas as $partida) {
+    echo "Jugador: " . $partida["jugador"] . ", Palabra: " . $partida["palabraWordix"];
+}
+
+ }
 
 
 
