@@ -142,7 +142,7 @@ function seleccionarOpcion(){
 
 
 //Inicialización de variables:
-
+$collecionPartidas=cargarPartidas();
 
 //Proceso:
 

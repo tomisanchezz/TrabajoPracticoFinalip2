@@ -342,7 +342,6 @@ function obtenerPuntajeWordix($palabra, $intentos){
     //int $puntajeFinal, $i
     //array $separarPalabra (arreglo indexado, valores string que pertenecen a cada letra de la palabra)
     //array $abc (arreglo multidimensional, los 3 índices tienen un tipo de letra)
-    $puntajeFinal=0;
 
     if($intentos<=6){
         $puntajeFinal = (CANT_INTENTOS+1) - $intentos;
@@ -351,15 +350,15 @@ function obtenerPuntajeWordix($palabra, $intentos){
     }
 
     if($puntajeFinal>0){
-        $separarPalabra = str_split($palabra);
+        $separarPalabra = str_split($palabra);//str_split divide un texto y lo hace un arreglo de caracteres
         $abc[0] = ["A","E","I","O","U"];
         $abc[1] = ["B","C","D","F","G","H","J","K","L","M"];
         $abc[2] = ["N","Ñ","P","Q","R","S","T","V","W","X","Y","Z"];
 
         for($i=0;$i<5;$i++){
-            if(in_array($separarPalabra[$i], $abc)){
+            if ($abc[0] == $separarPalabra[$i]){
                 $puntajeFinal = $puntajeFinal + 1;
-            } elseif (in_array($separarPalabra[$i], $abc)){
+            } elseif ($abc[1] == $separarPalabra[$i]){
                 $puntajeFinal = $puntajeFinal + 2;
             } else {
                 $puntajeFinal = $puntajeFinal + 3;
@@ -418,4 +417,48 @@ function jugarWordix($palabraWordix, $nombreUsuario)
     ];
 
     return $partida;
+}
+
+//Consigna 8
+/**
+ * @param array $collecPartida
+ * @param string $jugador
+ * @return int
+ */
+function primerPartida($collecPartida,$jugador){
+    //int $partidaGanada
+    $partidaGanada=-1;
+    foreach($collecPartida as $value){
+        if ($value["jugador"]==$jugador && $value["puntaje"]>0){
+            $partidaGanada=$value;
+        }
+    }
+    return $partidaGanada;
+}
+
+//Consinga 10
+/**
+ * @return string
+ */
+function solicitarJugador(){
+    //string $nombre
+    echo "Ingrese su nombre ";
+    $nombre=trim(fgets(STDIN));
+    $nombre=strtolower($nombre);//el nombre pasa a minúsculas
+    switch ($nombre) {
+        case "": //si no ingresa nada, se le asigna "1" a nombre, para q se repita la condición y vuelva a ingresar el nombre.
+            $nombre = "1";
+            break;
+    }
+    while($nombre[0] != ctype_alpha($nombre[0])){//verifica que el primer caracter sea una letra y se repite hasta q empiece por una letra.
+        echo "Ingrese su nombre con el 1er caracter como una letra ";
+        $nombre=trim(fgets(STDIN));
+        switch ($nombre) {
+            case "":
+                $nombre = "1";
+                break;
+        }
+    } 
+    $nombre = strtolower($nombre);
+    return $nombre;
 }
