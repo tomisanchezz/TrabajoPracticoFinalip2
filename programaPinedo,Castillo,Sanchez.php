@@ -42,8 +42,8 @@ function cargarColeccionPalabras()
 
 /**
  * Modulo 2
- * Este modulo va a funcionar para crear las 10 partidas minimas para el juego, donde $partida es un araray indexado con los juegos prejugados donde luego a partida se lo cambia por coleccion de partidas y lo retorna.
- * //array $partida[] es un array indexado.
+ * Este modulo va a funcionar para crear las 10 partidas minimas para el juego, donde $partida es un araray asociativoo con los juegos prejugados donde luego a partida se lo cambia por coleccion de partidas y lo retorna.
+ * //array $partida[] es un array asociativo.
  * @return array
  * */ 
 function cargarPartidas(){
