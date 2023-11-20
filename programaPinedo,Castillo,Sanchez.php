@@ -163,7 +163,47 @@ function primerPartida($collecPartida,$jugador){
     return $partidaGanada;
 }
 
+/** Modulo 9
+ *  Este modulo retorna un string que comparte informacion sobre un jugador solicitado por el usuario
+ * @param string $nombreDeJugador, $buscarJugador
+ * @param int $partidasJugadas, $victorias, $sumaPuntaje, $porcentajeVictorias
+ * @return string $resumenDelJugador 
+ */
+function resumenJugador2($nombreDeJugador){
+    $datosDePartida=cargarPartidas();
+    $buscarJugador=strtolower($nombreDeJugador);
+    $partidasJugadas=0;
+    $victorias=0;
+    $sumaPuntaje=0;
+    if($datosDePartida["jugador"] == $buscarJugador){
+        //@param string $indice
+        foreach($datosDePartida as $indice){
+            
+            if($indice["jugador"]==$buscarJugador){
+                $partidasJugadas++;
+                //@param int $intPuntos
+                $intPuntos=(int)$indice["puntaje"];
+                $sumaPuntaje= $sumaPuntaje + $intPuntos;
+                if($intPuntos>0){
+                    $victorias++;
+                }
 
+            }
+        }
+
+        $porcentajeVictorias= $victorias / $partidasJugadas * 100;
+        $resumenDelJugador="Jugador: ". $buscarJugador."\n".
+        "Partidas: ". $partidasJugadas."\n".
+        "Puntaje final: ". $sumaPuntaje."\n".
+        "Victorias: ". $victorias."\n".
+        "Porcentaje de victorias: ". $porcentajeVictorias."\n";
+        
+    }
+    else{
+        $resumenDelJugador="Este jugador no existe.";
+    }
+    return $resumenDelJugador;
+}
 
 //Consinga 10
 /**
