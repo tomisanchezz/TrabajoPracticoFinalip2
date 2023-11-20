@@ -97,7 +97,37 @@ function seleccionarOpcion(){
     }
 
 //*MODULOS 4 Y 5 en el archivo WORDIX.php**//
+/**
+ * Modulo 6.
+ * Este modulo retorna los datos de una partida solicitada por el usuario.
+ * @param string $todasLasPartidas, $datosDePartida
+ * @param int $cantidadPartidas, $numPartida
+ * @return $infoPartida
+ */
+function datosPartida($numPartida) {
+    $todasLasPartidas=cargarPartidas();
+    $cantidadPartidas= count($todasLasPartidas);
+    $datosDePartida= $todasLasPartidas[$numPartida];
+    if($numPartida>=0 && $numPartida<=$cantidadPartidas){
 
+        $infoPartida="Partida WORDIX $numPartida: palabra ". $datosDePartida["palabraWordix"]. "\n".
+        "Jugador: " . $datosDePartida["jugador"]. "\n".
+        "Puntaje: ". $datosDePartida["puntaje"]. " puntos \n";
+        if($datosDePartida["puntaje"]>0){
+            $infoPartida.="Adivinó la palabra en ".$datosDePartida["intentos"]." intentos \n";
+        }
+        else{
+            $infoPartida.="No adivinó la palabra";
+        }
+
+       }
+
+    else{
+        echo"El numero de partida no existe.";
+    }
+
+    return $infoPartida;
+}
 /**
  * Modulo 7
  * Este modulo tiene la funcion de tomar la palabra nueva que quiere ingresar el usuario, meterla en el array de coleccion de palabras y luego retornar el mismo array pero con la nueva palabra agregada
