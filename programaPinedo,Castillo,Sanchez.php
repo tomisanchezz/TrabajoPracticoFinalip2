@@ -190,7 +190,7 @@ function resumenJugador2($nombreDeJugador){
 
             }
         }
-
+        
         if($partidasJugadas>0){
             $porcentajeVictorias= $victorias / $partidasJugadas * 100;
         }
