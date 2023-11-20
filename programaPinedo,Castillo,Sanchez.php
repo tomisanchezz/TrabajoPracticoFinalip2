@@ -128,6 +128,9 @@ function datosPartida($numPartida) {
 
     return $infoPartida;
 }
+
+
+
 /**
  * Modulo 7
  * Este modulo tiene la funcion de tomar la palabra nueva que quiere ingresar el usuario, meterla en el array de coleccion de palabras y luego retornar el mismo array pero con la nueva palabra agregada
@@ -141,49 +144,78 @@ function datosPartida($numPartida) {
     return $coleccionPalabras;
  }
 
- /**
-  * Modulo 10
-  *Este modulo solicita al usuario el ingreso de un nombre de jugador, asegurándose de que comience con una letra y devolviendo el nombre en minúsculas.
-  *@param string $nombreIngresado
-  *@return $nombreIngresado
-  */
- function solicitarjugador(){
 
-     echo"Ingrese el nombre de un jugador: ";
-    $nombreIngresado=trim(fgets(STDIN));
 
-    if(!ctype_alpha($nombreIngresado[0])){
-        while(!ctype_alpha($nombreIngresado[0])){
-            echo"Ingrese el nombre de un jugador: ";
-            $nombreIngresado=trim(fgets(STDIN));
+ //Consigna 8
+/**
+ * @param array $collecPartida
+ * @param string $jugador
+ * @return int
+ */
+function primerPartida($collecPartida,$jugador){
+    //int $partidaGanada
+    $partidaGanada=-1;
+    foreach($collecPartida as $value){
+        if ($value["jugador"]==$jugador && $value["puntaje"]>0){
+            $partidaGanada=$value;
         }
     }
+    return $partidaGanada;
+}
 
-    return strtolower($nombreIngresado);
- }
+
+
+//Consinga 10
+/**
+ * @return string
+ */
+function solicitarJugador(){
+    //string $nombre
+    echo "Ingrese su nombre ";
+    $nombre=trim(fgets(STDIN));
+    $nombre=strtolower($nombre);//el nombre pasa a minúsculas
+    switch ($nombre) {
+        case "": //si no ingresa nada, se le asigna "1" a nombre, para q se repita la condición y vuelva a ingresar el nombre.
+            $nombre = "1";
+            break;
+    }
+    while($nombre[0] != ctype_alpha($nombre[0])){//verifica que el primer caracter sea una letra y se repite hasta q empiece por una letra.
+        echo "Ingrese su nombre con el 1er caracter como una letra ";
+        $nombre=trim(fgets(STDIN));
+        switch ($nombre) {
+            case "":
+                $nombre = "1";
+                break;
+        }
+    } 
+    $nombre = strtolower($nombre);
+    return $nombre;
+}
+
+
 
 /**
- * Modulo 11
- * 
+ * Modulo 11 (comparacion)
+ * @param array $a, $b
+ * @return int
  */
 
  function cmp($a, $b) {
-   // Primero, compara por el nombre del jugador
-    $resultado = strcasecmp($a["jugador"], $b["jugador"]);
-
-    // Si los nombres son iguales, compara por la palabra
-    if ($resultado == 0) {
-        $resultado = strcasecmp($a["palabraWordix"], $b["palabraWordix"]);
+    if (strcasecmp($a["jugador"], $b["jugador"]) == 0){ // Primero, compara por el nombre del jugador y si es igual a 0 entra al if
+         return strcasecmp($a["palabraWordix"], $b["palabraWordix"]);
+     } else {
+        return strcasecmp($a["jugador"], $b["jugador"]); //Si los nombres no son iguales a 0, entonces se ordena según el nombre
+     }
     }
 
-$coleccionPartidas = cargarPartidas();
-// Ordenar la colección de partidas usando uasort y la función de comparación
-uasort($coleccionPartidas, "cmp");
-// Mostrar el resultado usando print_r, solo nombre y palabra
-foreach ($coleccionPartidas as $partida) {
-    echo "Jugador: " . $partida["jugador"] . ", Palabra: " . $partida["palabraWordix"];
-}
+/**
+ * Modulo 11
+ * @param array $collec
+ */
 
+ function partidasOrdenadas($collec){
+    uasort($collec,'cmp'); //uasort ordena el array asociativo
+    print_r($collec); //print_r va a imprimir el array
  }
 
 
