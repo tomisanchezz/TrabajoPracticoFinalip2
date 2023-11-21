@@ -42,9 +42,9 @@ function cargarColeccionPalabras()
 
 /**
  * Modulo 2
- * Este modulo va a funcionar para crear las 10 partidas minimas para el juego, donde $partida es un araray asociativoo con los juegos prejugados donde luego a partida se lo cambia por coleccion de partidas y lo retorna.
- * //array $partida[] es un array asociativo.
- * @return array
+ * Este modulo va a funcionar para crear las 10 partidas minimas para el juego, donde $partida es un araray asociativo con los juegos prejugados donde luego a partida se lo cambia por coleccion de partidas y lo retorna.
+ * //array $partida es un array asociativo.
+ * @return $partida
  * */ 
 function cargarPartidas(){
 
@@ -190,13 +190,8 @@ function resumenJugador2($nombreDeJugador){
 
             }
         }
-        
-        if($partidasJugadas>0){
-            $porcentajeVictorias= $victorias / $partidasJugadas * 100;
-        }
-        else{
-            $porcentajeVictorias="0%";
-        }
+
+        $porcentajeVictorias= $victorias / $partidasJugadas * 100;
         $resumenDelJugador="Jugador: ". $buscarJugador."\n".
         "Partidas: ". $partidasJugadas."\n".
         "Puntaje final: ". $sumaPuntaje."\n".
@@ -271,9 +266,9 @@ function solicitarJugador(){
 
 //Declaración de variables:
 
-
 //Inicialización de variables:
 $collecionPartidas=cargarPartidas();
+
 
 //Proceso:
 
@@ -281,17 +276,31 @@ $partida = jugarWordix("MELON", strtolower("MaJo"));
 //print_r($partida);
 //imprimirResultado($partida);
 
-
-
-/*
 do {
-    $opcion = ...;
+    $opcion = seleccionarOpcion();
+    echo $opcion;
 
-    
     switch ($opcion) {
         case 1: 
-            //completar qué secuencia de pasos ejecutar si el usuario elige la opción 1
+            echo "Ingresa tu nombre";
+            $nombre=trim(fgets(STDIN));
 
+            echo "selecciona un numero para empezar a jugar";
+            $numElegido=trim(fgets(STDIN));
+            $numAnterior=0;
+            if ($numElegido>=1 && $numElegido< count($coleccionPalabras)){
+                if($numElegido  == $numAnterior ){
+                    echo "Ya utilizo este numero, ingrese otro";
+                    $numElegido=trim(fgets(STDIN));
+                }
+                $numAnterior = $numElegido;
+                
+        $partida= jugarWordix($numElegido, strtolower($nombre)) ;
+
+
+
+
+            }
             break;
         case 2: 
             //completar qué secuencia de pasos ejecutar si el usuario elige la opción 2
@@ -301,9 +310,9 @@ do {
             //completar qué secuencia de pasos ejecutar si el usuario elige la opción 3
 
             break;
+            
         
-            //...
     }
-} while ($opcion != X);
-*/
+} while ($opcion>=1 && $opcion<8);
+
 echo seleccionarOpcion();
