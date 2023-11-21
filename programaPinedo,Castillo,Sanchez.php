@@ -271,6 +271,8 @@ function solicitarJugador(){
 
 //Inicialización de variables:
 $collecionPartidas=cargarPartidas();
+$numAnterior=0;
+
 
 //Proceso:
 
@@ -278,16 +280,29 @@ $partida = jugarWordix("MELON", strtolower("MaJo"));
 //print_r($partida);
 //imprimirResultado($partida);
 
-
-
-/*
 do {
-    $opcion = ...;
+    $opcion = seleccionarOpcion();
+    echo $opcion;
 
-    
     switch ($opcion) {
         case 1: 
-            //completar qué secuencia de pasos ejecutar si el usuario elige la opción 1
+            echo "Ingresa tu nombre";
+            $nombre=trim(fgets(STDIN));
+
+            echo "selecciona un numero para empezar a jugar";
+            $numElegido=trim(fgets(STDIN));
+            if ($numElegido>=1 && $numElegido< count($coleccionPalabras)){
+                if($numElegido  == $numAnterior ){
+                    echo "Ya utilizo este numero, ingrese otro";
+                    $numElegido=trim(fgets(STDIN));
+                }
+                $numAnterior = $numElegido;
+                
+        $partida= jugarWordix($numElegido, strtolower($nombre)) ;
+            }
+
+            $collecionPartidas[]=  array("palabraWordix" => $numElegido, "jugador" => $nombre, "intentos" => $intentos, "puntaje" => $puntaje);
+
 
             break;
         case 2: 
@@ -298,9 +313,9 @@ do {
             //completar qué secuencia de pasos ejecutar si el usuario elige la opción 3
 
             break;
+            
         
-            //...
     }
-} while ($opcion != X);
-*/
+} while ($opcion>=1 && $opcion<8);
+
 echo seleccionarOpcion();
