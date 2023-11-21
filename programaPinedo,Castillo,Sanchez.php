@@ -42,23 +42,23 @@ function cargarColeccionPalabras()
 
 /**
  * Modulo 2
- * Este modulo va a funcionar para crear las 10 partidas minimas para el juego, donde $partida es un araray asociativo con los juegos prejugados donde luego a partida se lo cambia por coleccion de partidas y lo retorna.
- * //array $partida es un array asociativo.
- * @return $partida
+ * Este modulo va a funcionar para crear las 10 partidas minimas para el juego, donde $partida es un araray asociativoo con los juegos prejugados donde luego a partida se lo cambia por coleccion de partidas y lo retorna.
+ * //array $partida[] es un array asociativo.
+ * @return array
  * */ 
 function cargarPartidas(){
 
     $partida = array(
-        array("palabraWordix" => "TINTO", "jugador" => "Valentina", "intentos" => 1, "puntaje" => "14"),
-        array("palabraWordix" => "TINTO", "jugador" => "Valentina", "intentos" => 1, "puntaje" => "14"),
-        array("palabraWordix" => "PERRO", "jugador" => "Maria", "intentos" => 4, "puntaje" => "13"),
-        array("palabraWordix" => "ARBOL", "jugador" => "Pedro", "intentos" => 3, "puntaje" => "13"),
-        array("palabraWordix" => "GATOS", "jugador" => "Tomas", "intentos" => 6, "puntaje" => "0"),
-        array("palabraWordix" => "VERDE", "jugador" => "Alejandro", "intentos" => 3, "puntaje" => "14"),
-        array("palabraWordix" => "MELON", "jugador" => "Martin", "intentos" => 2, "puntaje" => "15"),
-        array("palabraWordix" => "HUEVO", "jugador" => "Javie", "intentos" => 5, "puntaje" => "9"),
-        array("palabraWordix" => "GOTAS", "jugador" => "Emanuel", "intentos" => 2, "puntaje" => "15"),
-        array("palabraWordix" => "MUJER", "jugador" => "Tomas", "intentos" => 0, "puntaje" => "0")
+        array("palabraWordix" => "TINTO", "jugador" => "Valentina", "intentos" => 1, "puntaje" => 14),
+        array("palabraWordix" => "TINTO", "jugador" => "Valentina", "intentos" => 1, "puntaje" => 14),
+        array("palabraWordix" => "PERRO", "jugador" => "Maria", "intentos" => 4, "puntaje" => 13),
+        array("palabraWordix" => "ARBOL", "jugador" => "Pedro", "intentos" => 3, "puntaje" => 13),
+        array("palabraWordix" => "GATOS", "jugador" => "Tomas", "intentos" => 6, "puntaje" => 0),
+        array("palabraWordix" => "VERDE", "jugador" => "Alejandro", "intentos" => 3, "puntaje" => 14),
+        array("palabraWordix" => "MELON", "jugador" => "Martin", "intentos" => 2, "puntaje" => 15),
+        array("palabraWordix" => "HUEVO", "jugador" => "Javie", "intentos" => 5, "puntaje" => 9),
+        array("palabraWordix" => "GOTAS", "jugador" => "Emanuel", "intentos" => 2, "puntaje" => 15),
+        array("palabraWordix" => "MUJER", "jugador" => "Tomas", "intentos" => 0, "puntaje" => 0)
     );
 
     return $partida;
@@ -100,18 +100,15 @@ function seleccionarOpcion(){
 /**
  * Modulo 6.
  * Este modulo retorna los datos de una partida solicitada por el usuario.
- * @param int $numPartida
- * @return array
+ * @param string $todasLasPartidas, $datosDePartida
+ * @param int $cantidadPartidas, $numPartida
+ * @return $infoPartida
  */
 function datosPartida($numPartida) {
-    /**
-     * int $cantidadPartidas
-     * array $todasLasPartidas, $datosDePartida
-     */
     $todasLasPartidas=cargarPartidas();
-    $cantidadPartidas= count($todasLasPartida);
+    
     $datosDePartida= $todasLasPartidas[$numPartida];
-    if($numPartida>=0 && $numPartida<=$cantidadPartidas){
+    if($numPartida>=0 && $numPartida<=count($todasLasPartidas[])){
 
         $infoPartida="Partida WORDIX $numPartida: palabra ". $datosDePartida["palabraWordix"]. "\n".
         "Jugador: " . $datosDePartida["jugador"]. "\n".
@@ -128,9 +125,8 @@ function datosPartida($numPartida) {
     else{
         echo"El numero de partida no existe.";
     }
-
-    return $infoPartida;
 }
+
 
 /**
  * Modulo 7
@@ -191,8 +187,13 @@ function resumenJugador2($nombreDeJugador){
 
             }
         }
-
-        $porcentajeVictorias= $victorias / $partidasJugadas * 100;
+        
+        if($partidasJugadas>0){
+            $porcentajeVictorias= $victorias / $partidasJugadas * 100;
+        }
+        else{
+            $porcentajeVictorias="0%";
+        }
         $resumenDelJugador="Jugador: ". $buscarJugador."\n".
         "Partidas: ". $partidasJugadas."\n".
         "Puntaje final: ". $sumaPuntaje."\n".
@@ -267,10 +268,9 @@ function solicitarJugador(){
 
 //Declaración de variables:
 
+
 //Inicialización de variables:
 $collecionPartidas=cargarPartidas();
-$numAnterior=0;
-
 
 //Proceso:
 
@@ -278,29 +278,16 @@ $partida = jugarWordix("MELON", strtolower("MaJo"));
 //print_r($partida);
 //imprimirResultado($partida);
 
-do {
-    $opcion = seleccionarOpcion();
-    echo $opcion;
 
+
+/*
+do {
+    $opcion = ...;
+
+    
     switch ($opcion) {
         case 1: 
-            echo "Ingresa tu nombre";
-            $nombre=trim(fgets(STDIN));
-
-            echo "selecciona un numero para empezar a jugar";
-            $numElegido=trim(fgets(STDIN));
-            if ($numElegido>=1 && $numElegido< count($coleccionPalabras)){
-                if($numElegido  == $numAnterior ){
-                    echo "Ya utilizo este numero, ingrese otro";
-                    $numElegido=trim(fgets(STDIN));
-                }
-                $numAnterior = $numElegido;
-                
-        $partida= jugarWordix($numElegido, strtolower($nombre)) ;
-            }
-
-            $collecionPartidas[]=  array("palabraWordix" => $numElegido, "jugador" => $nombre, "intentos" => $intentos, "puntaje" => $puntaje);
-
+            //completar qué secuencia de pasos ejecutar si el usuario elige la opción 1
 
             break;
         case 2: 
@@ -311,9 +298,9 @@ do {
             //completar qué secuencia de pasos ejecutar si el usuario elige la opción 3
 
             break;
-            
         
+            //...
     }
-} while ($opcion>=1 && $opcion<8);
-
+} while ($opcion != X);
+*/
 echo seleccionarOpcion();
