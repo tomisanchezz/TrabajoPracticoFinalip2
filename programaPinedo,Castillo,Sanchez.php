@@ -108,7 +108,7 @@ function datosPartida($numPartida) {
     $todasLasPartidas=cargarPartidas();
     
     $datosDePartida= $todasLasPartidas[$numPartida];
-    if($numPartida>=0 && $numPartida<=count($todasLasPartidas[])){
+    if($numPartida>=0 && $numPartida<=count($todasLasPartidas)){
 
         $infoPartida="Partida WORDIX $numPartida: palabra ". $datosDePartida["palabraWordix"]. "\n".
         "Jugador: " . $datosDePartida["jugador"]. "\n".
@@ -270,8 +270,12 @@ function solicitarJugador(){
 
 
 //Inicialización de variables:
-$collecionPartidas=cargarPartidas();
+$coleccionPartidas=cargarPartidas();
 $numAnterior=0;
+$palabrasDisponibles = cargarColeccionPalabras();
+$PedirNombre= solicitarJugador();
+$datoPartida3=  datosPartida($numPartida);
+
 
 
 //Proceso:
@@ -286,7 +290,7 @@ do {
 
     switch ($opcion) {
         case 1: 
-            echo "Ingresa tu nombre";
+            echo $PedirNombre;
             $nombre=trim(fgets(STDIN));
 
             echo "selecciona un numero para empezar a jugar";
@@ -301,16 +305,24 @@ do {
         $partida= jugarWordix($numElegido, strtolower($nombre)) ;
             }
 
-            $collecionPartidas[]=  array("palabraWordix" => $numElegido, "jugador" => $nombre, "intentos" => $intentos, "puntaje" => $puntaje);
-
-
+            $coleccionPartidas[]=  array("palabraWordix" => $numElegido, "jugador" => $nombre, "intentos" => $intentos, "puntaje" => $puntajeFinal);
             break;
         case 2: 
-            //completar qué secuencia de pasos ejecutar si el usuario elige la opción 2
+            echo $PedirNombre;
+            $nombre=trim(fgets(STDIN));
+
+            $palabraElegida = $palabrasDisponibles[array_rand($palabrasDisponibles)];
+
+            $partida= jugarWordix($palabraElegida, strtolower($nombre));
+
+            $coleccionPartidas[]=  array("palabraWordix" => $palabraElegida, "jugador" => $nombre, "intentos" => $intentos, "puntaje" => $puntajeFinal);
 
             break;
         case 3: 
-            //completar qué secuencia de pasos ejecutar si el usuario elige la opción 3
+            echo $PedirNombre;
+            $nombre=trim(fgets(STDIN));
+
+            echo $datoPartida3;
 
             break;
             
