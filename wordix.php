@@ -333,13 +333,32 @@ function esIntentoGanado($estructuraPalabraIntento)
     return $ganado;
 }
 
+
+
+/**
+ * Modulo que retorna true 
+ * @param array $letra, $grupo
+ * @return boolean
+ */
+function pertenece($letra,$grupo){
+    //boolean $abecedario
+    $abecedario=false;
+    foreach ($grupo as $key) {
+    if($key === $letra){
+            $abecedario=true;
+        }
+    }
+    return $abecedario;
+}
+
+
+
 /**
  * @param string $palabra
  * @param int $intentos
  * @return int
  */
 function obtenerPuntajeWordix($palabra, $intentos){
-    //int $puntajeFinal, $i
     //array $separarPalabra (arreglo indexado, valores string que pertenecen a cada letra de la palabra)
     //array $abc (arreglo multidimensional, los 3 índices tienen un tipo de letra)
 
@@ -355,18 +374,27 @@ function obtenerPuntajeWordix($palabra, $intentos){
         $abc[1] = ["B","C","D","F","G","H","J","K","L","M"];
         $abc[2] = ["N","Ñ","P","Q","R","S","T","V","W","X","Y","Z"];
 
-        for($i=0;$i<5;$i++){
-            if ($abc[0] == $separarPalabra[$i]){
-                $puntajeFinal = $puntajeFinal + 1;
-            } elseif ($abc[1] == $separarPalabra[$i]){
-                $puntajeFinal = $puntajeFinal + 2;
-            } else {
-                $puntajeFinal = $puntajeFinal + 3;
+            foreach($separarPalabra as $letra2){
+                $perteneceAlGrupo=pertenece($letra2,$abc[0]);
+                if($perteneceAlGrupo){
+                    $puntajeFinal = $puntajeFinal + 1;
+                } else{
+                    $perteneceAlGrupo=pertenece($letra2, $abc[1]);
+                    if ($perteneceAlGrupo) {
+                        $puntajeFinal = $puntajeFinal + 2;
+                    } else {
+                        $perteneceAlGrupo=pertenece($letra2, $abc[2]);
+                        if ($perteneceAlGrupo) {
+                            $puntajeFinal = $puntajeFinal + 3;
+                        }
+                    }
+                }
             }
-        }
     }
     return $puntajeFinal;
 }
+
+
 
 /**
  * Dada una palabra para adivinar, juega una partida de wordix intentando que el usuario adivine la palabra.
