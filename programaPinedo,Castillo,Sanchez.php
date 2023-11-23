@@ -105,9 +105,8 @@ function seleccionarOpcion(){
 function datosPartida($numPartida) {
     $todasLasPartidas=cargarPartidas();
     
-    $datosDePartida= $todasLasPartidas[$numPartida];
-    if($numPartida>=0 && $numPartida<=count($todasLasPartidas)){
-
+    if($numPartida>=0 && $numPartida<count($todasLasPartidas)){
+        $datosDePartida= $todasLasPartidas[$numPartida -1];
         $infoPartida="Partida WORDIX $numPartida: palabra ". $datosDePartida["palabraWordix"]. "\n".
         "Jugador: " . $datosDePartida["jugador"]. "\n".
         "Puntaje: ". $datosDePartida["puntaje"]. " puntos \n";
@@ -121,8 +120,9 @@ function datosPartida($numPartida) {
        }
 
     else{
-        echo"El numero de partida no existe.";
+        $infoPartida="El numero de partida no existe.";
     }
+    return $infoPartida;
 }
 
 
