@@ -273,12 +273,7 @@ function solicitarJugador(){
 //Inicialización de variables:
 $coleccionPartidas=cargarPartidas();
 $numAnterior=0;
-
-
-
-
-
-
+$palabras=cargarColeccionPalabras();
 //Proceso:
 
 
@@ -306,7 +301,7 @@ do {
                 }
                 $numAnterior = $numElegido;
                 
-        $partida= jugarWordix($numElegido, strtolower($pedirNombre)) ;
+        $partida= jugarWordix($palabras[$numElegido], strtolower($pedirNombre)) ;
             }
 
             $coleccionPartidas[]=  array("palabraWordix" => $numElegido, "jugador" => $pedirNombre, "intentos" => $intentos, "puntaje" => $puntajeFinal);
