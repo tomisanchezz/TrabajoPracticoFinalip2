@@ -325,6 +325,16 @@ do {
             $numPartida=trim(fgets(STDIN));
             $datoPartida3=  datosPartida($numPartida);
             echo $datoPartida3;
+        
+            if($datoPartida3 == "El numero de partida no existe."){
+                do{
+                    echo("Ingrese el numero de la partida que quiere ver: ");
+            $numPartida=trim(fgets(STDIN));
+            $datoPartida3=  datosPartida($numPartida);
+            echo $datoPartida3;
+                }while($datoPartida3 =="El numero de partida no existe.");
+            }
+        
 
             break;
             
@@ -332,5 +342,3 @@ do {
         $opcionElegida=trim(fgets(STDIN));
     }
 } while ($opcionElegida>=1 && $opcion<8);
-
-echo seleccionarOpcion();
