@@ -106,7 +106,9 @@ function datosPartida($numPartida) {
     $todasLasPartidas=cargarPartidas();
     
     if($numPartida>=0 && $numPartida<count($todasLasPartidas)){
-        $datosDePartida= $todasLasPartidas[$numPartida -1];
+        $menos=1;
+        
+        $datosDePartida= $todasLasPartidas[$numPartida - $menos];
         $infoPartida="Partida WORDIX $numPartida: palabra ". $datosDePartida["palabraWordix"]. "\n".
         "Jugador: " . $datosDePartida["jugador"]. "\n".
         "Puntaje: ". $datosDePartida["puntaje"]. " puntos \n";
@@ -272,19 +274,20 @@ $coleccionPartidas=cargarPartidas();
 $numAnterior=0;
 $palabrasDisponibles = cargarColeccionPalabras();
 $PedirNombre= solicitarJugador();
-$datoPartida3=  datosPartida($numPartida);
+$opcion = seleccionarOpcion();
 
 
 
 //Proceso:
 
-$partida = jugarWordix("MELON", strtolower("MaJo"));
+
 //print_r($partida);
 //imprimirResultado($partida);
-
+    
+    
 do {
-    $opcion = seleccionarOpcion();
     echo $opcion;
+    $opcionElegida=trim(fgets(STDIN));
 
     switch ($opcion) {
         case 1: 
@@ -317,15 +320,17 @@ do {
 
             break;
         case 3: 
-            echo $PedirNombre;
-            $nombre=trim(fgets(STDIN));
-
+            
+            echo("Ingrese el numero de la partida que quiere ver: ");
+            $numPartida=trim(fgets(STDIN));
+            $datoPartida3=  datosPartida($numPartida);
             echo $datoPartida3;
 
             break;
             
-        
+        echo $opcion;
+        $opcionElegida=trim(fgets(STDIN));
     }
-} while ($opcion>=1 && $opcion<8);
+} while ($opcionElegida>=1 && $opcion<8);
 
 echo seleccionarOpcion();
