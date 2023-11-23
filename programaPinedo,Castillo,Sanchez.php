@@ -273,8 +273,8 @@ function solicitarJugador(){
 $coleccionPartidas=cargarPartidas();
 $numAnterior=0;
 $palabrasDisponibles = cargarColeccionPalabras();
-$PedirNombre= solicitarJugador();
-$opcion = seleccionarOpcion();
+
+
 
 
 
@@ -286,11 +286,14 @@ $opcion = seleccionarOpcion();
     
     
 do {
+    $opcion = seleccionarOpcion();
     echo $opcion;
     $opcionElegida=trim(fgets(STDIN));
+    
 
     switch ($opcion) {
         case 1: 
+            $PedirNombre= solicitarJugador();
             echo $PedirNombre;
             $nombre=trim(fgets(STDIN));
 
@@ -309,6 +312,7 @@ do {
             $coleccionPartidas[]=  array("palabraWordix" => $numElegido, "jugador" => $nombre, "intentos" => $intentos, "puntaje" => $puntajeFinal);
             break;
         case 2: 
+            $PedirNombre= solicitarJugador();
             echo $PedirNombre;
             $nombre=trim(fgets(STDIN));
 
