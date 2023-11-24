@@ -274,6 +274,7 @@ function solicitarJugador(){
 $coleccionPartidas=cargarPartidas();
 $numAnterior=0;
 $palabras=cargarColeccionPalabras();
+$palabrasDisponibles = cargarColeccionPalabras();
 //Proceso:
 
 
@@ -308,7 +309,7 @@ do {
             break;
         case 2: 
             $pedirNombre= solicitarJugador();
-            
+            $palabrasDisponibles = cargarColeccionPalabras();
 
             $palabraElegida = $palabrasDisponibles[array_rand($palabrasDisponibles)];
 
