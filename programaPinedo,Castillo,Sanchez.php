@@ -160,54 +160,75 @@ function primerPartida($collecPartida,$jugador){
     }
     return $partidaGanada;
 }
-
 /** Modulo 9
  *  Este modulo retorna un string que comparte informacion sobre un jugador solicitado por el usuario
  * @param string $nombreDeJugador, $buscarJugador
  * @param int $partidasJugadas, $victorias, $sumaPuntaje, $porcentajeVictorias
  * @return string $resumenDelJugador 
  */
-function resumenJugador($nombreDeJugador){
-    $datosDePartida=cargarPartidas();
-    $buscarJugador=strtolower($nombreDeJugador);
-    $partidasJugadas=0;
-    $victorias=0;
-    $sumaPuntaje=0;
-    if($datosDePartida["jugador"] == $buscarJugador){
-        //@param string $indice
-        foreach($datosDePartida as $indice){
-            
-            if($indice["jugador"]==$buscarJugador){
-                $partidasJugadas++;
-                //@param int $intPuntos
-                $intPuntos=(int)$indice["puntaje"];
-                $sumaPuntaje= $sumaPuntaje + $intPuntos;
-                if($intPuntos>0){
-                    $victorias++;
-                }
+function resumenJugador($nombreDeJugador,$partida){
+    
+    $arrayResumen=["jugador" => "",
+    "partidas" => 0,"puntaje" => 0,"victorias" => 0,
+    "intento1" => 0,"intento2" => 0,"intento3" => 0,
+    "intento4" => 0,"intento5" => 0,"intento6" => 0 ];
 
+    foreach($partida as $unaPartida){
+        if($nombreDeJugador==$unaPartida["jugador"]){ 
+            $arrayResumen["jugador"]=$nombreDeJugador;
+            $arrayResumen["partidas"]+= 1;
+            $arrayResumen["puntaje"]+= $unaPartida["puntaje"];
+
+            if($unaPartida["puntaje"]>0){
+                $arrayResumen["victorias"]+=1;
             }
+            switch($unaPartida["intentos"]){
+                case 1:
+                    $arrayResumen["intento1"]+=1;
+                    break;
+                case 2:
+                    $arrayResumen["intento2"]+=1;
+                    break;
+                case 3:
+                    $arrayResumen["intento3"]+=1;
+                    break;
+                case 4:
+                    $arrayResumen["intento4"]+=1;
+                    break;
+                case 5:
+                    $arrayResumen["intento5"]+=1;
+                    break;
+                case 6:
+                    $arrayResumen["intento6"]+=1;
+                    break;
+            }
+          
         }
         
-        if($partidasJugadas>0){
-            $porcentajeVictorias= $victorias / $partidasJugadas * 100;
-        }
-        else{
-            $porcentajeVictorias="0%";
-        }
-        $resumenDelJugador="Jugador: ". $buscarJugador."\n".
-        "Partidas: ". $partidasJugadas."\n".
-        "Puntaje final: ". $sumaPuntaje."\n".
-        "Victorias: ". $victorias."\n".
-        "Porcentaje de victorias: ". $porcentajeVictorias."\n";
-        
+    }
+      
+    $resp1="******************\n".
+    "Jugador: ". $arrayResumen["jugador"]."\n".
+    "Partidas: ". $arrayResumen["partidas"]."\n".
+    "Puntaje final: ". $arrayResumen["puntaje"]."\n".
+    "Victorias: ". $arrayResumen["victorias"]."\n";
+    
+    if($arrayResumen["partidas"]>0){
+        $porcentajeVictorias = $arrayResumen["victorias"] / $arrayResumen["partidas"] * 100;
+        $resp2="Porcentaje de victorias: %" . $porcentajeVictorias . "\n";
     }
     else{
-        $resumenDelJugador="Este jugador no existe.";
+        $resp2= "Porcentaje de victorias: 0%";
     }
-    return $resumenDelJugador;
-}
+    $resp3="\nAdivinadas: \n" . "Intento 1: " . $arrayResumen["intento1"] . "\n" . "Intento 2: " . 
+    $arrayResumen["intento2"] . "\n" . "Intento 3: " . $arrayResumen["intento3"] . 
+    "\n" . "Intento 4:" . $arrayResumen["intento4"]. "\n". "Intento 5:" . $arrayResumen["intento5"]. "\n".
+    "Intento 6:" . $arrayResumen["intento6"]. "\n".
+    "******************\n";
 
+    $arrayRespuesta=[$resp1, $resp2, $resp3];
+    return $arrayRespuesta;
+}
 //Consinga 10
 /**
  * @return string
@@ -336,7 +357,14 @@ do {
         
 
             break;
-            
+        case 5:
+            echo"ingresenombre: ";
+            $nombree=trim(fgets(STDIN));
+            $resumen=resumenJugador($nombree, $coleccionPartidas);
+            echo($resumen[0]);
+            echo($resumen[1]);
+            echo($resumen[2]);
+            break;
         echo $opcion;
         $opcionElegida=trim(fgets(STDIN));
     }
