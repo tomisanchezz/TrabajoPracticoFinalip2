@@ -366,6 +366,7 @@ function obtenerPuntajeWordix($palabra, $intentos){
             }
         }
     }
+    return $puntajeFinal;
 }
 
 
