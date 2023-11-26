@@ -215,15 +215,15 @@ function resumenJugador($nombreDeJugador,$partida){
     
     if($arrayResumen["partidas"]>0){
         $porcentajeVictorias = $arrayResumen["victorias"] / $arrayResumen["partidas"] * 100;
-        $resp2="Porcentaje de victorias: %" . $porcentajeVictorias . "\n";
+        $resp2="Porcentaje de victorias: " . $porcentajeVictorias . "%\n";
     }
     else{
-        $resp2= "Porcentaje de victorias: 0%";
+        $resp2= "Porcentaje de victorias: 0% \n";
     }
-    $resp3="\nAdivinadas: \n" . "Intento 1: " . $arrayResumen["intento1"] . "\n" . "Intento 2: " . 
-    $arrayResumen["intento2"] . "\n" . "Intento 3: " . $arrayResumen["intento3"] . 
-    "\n" . "Intento 4:" . $arrayResumen["intento4"]. "\n". "Intento 5:" . $arrayResumen["intento5"]. "\n".
-    "Intento 6:" . $arrayResumen["intento6"]. "\n".
+    $resp3="Adivinadas: \n" . "     Intento 1: " . $arrayResumen["intento1"] . "\n" . "     Intento 2: " . 
+    $arrayResumen["intento2"] . "\n" . "     Intento 3: " . $arrayResumen["intento3"] . 
+    "\n" . "     Intento 4: " . $arrayResumen["intento4"]. "\n". "     Intento 5: " . $arrayResumen["intento5"]. "\n".
+    "     Intento 6: " . $arrayResumen["intento6"]. "\n".
     "******************\n";
 
     $arrayRespuesta=[$resp1, $resp2, $resp3];
@@ -313,20 +313,22 @@ do {
         case 1: 
             $pedirNombre= solicitarJugador();
             $palabrasDisponibles = cargarColeccionPalabras();
-            echo "selecciona un numero entre 1 y ". $cantDePalabras. " para empezar a jugar: ";
+            echo "Selecciona un numero entre 1 y ". $cantDePalabras. " para empezar a jugar: ";
             $numElegido=trim(fgets(STDIN));
-            
-            if ($numElegido>=1 && $numElegido< $cantDePalabras){
-                if($numElegido  == $numAnterior ){
+            do{
+                echo ("Numero incorrecto, ingrese un numero entre 1 y ". $cantDePalabras. " para empezar a jugar: ");
+                $numElegido=trim(fgets(STDIN));
+            }while($numElegido<1 OR $numElegido>$cantDePalabras);
+
+            if($numElegido  == $numAnterior ){
                     echo "Ya utilizo este numero, ingrese otro";
                     $numElegido=trim(fgets(STDIN));
                 }
-                $numAnterior = $numElegido;
-                
-        $partida= jugarWordix($palabras[$numElegido], strtolower($pedirNombre)) ;
-            }
 
-            $coleccionPartidas[]=  array("palabraWordix" => $numElegido, "jugador" => $pedirNombre, "intentos" => $intentos, "puntaje" => $puntajeFinal);
+            $numAnterior = $numElegido;
+            $partida= jugarWordix($palabras[$numElegido], strtolower($pedirNombre)) ;
+            $coleccionPartidas[]=  $partida;
+
             break;
         case 2: 
             $pedirNombre= solicitarJugador();
@@ -334,9 +336,9 @@ do {
 
             $palabraElegida = $palabrasDisponibles[array_rand($palabrasDisponibles)];
 
-            $partida= jugarWordix($palabraElegida, strtolower($nombre));
+            $partida= jugarWordix($palabraElegida, strtolower($pedirNombre));
 
-            $coleccionPartidas[]=  array("palabraWordix" => $palabraElegida, "jugador" => $nombre, "intentos" => $intentos, "puntaje" => $puntajeFinal);
+            $coleccionPartidas[]=  $partida;
 
             break;
         case 3: 
