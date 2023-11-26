@@ -280,7 +280,7 @@ $datoPartida3=  datosPartida($numPartida);
 
 //Proceso:
 
-$partida = jugarWordix("MELON", strtolower("MaJo"));
+
 //print_r($partida);
 //imprimirResultado($partida);
 
@@ -325,7 +325,13 @@ do {
             echo $datoPartida3;
 
             break;
-            
+        case 4:
+            echo "\ningresa el usuario ";
+            $usuario=trim(fgets(STDIN));
+            $pedirNombre=$usuario;
+            $primerPartida=primerPartida($coleccionPartidas,$pedirNombre);
+            print_r($primerPartida);
+            break;
         
     }
 } while ($opcion>=1 && $opcion<8);

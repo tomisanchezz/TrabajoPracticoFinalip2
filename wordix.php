@@ -336,21 +336,56 @@ function esIntentoGanado($estructuraPalabraIntento)
 
 
 /**
+ * @param string $palabra
+ * @param int $intentos
+ * @return int
+ */
+function obtenerPuntajeWordix($palabra, $intentos){
+    //array $separarPalabra (arreglo indexado, valores string que pertenecen a cada letra de la palabra)
+    //array $abc (arreglo multidimensional, los 3 índices tienen un tipo de letra)
+
+    if($intentos<=6){
+        $puntajeFinal = (CANT_INTENTOS+1) - $intentos;
+    } else {
+        $puntajeFinal = 0;
+    }
+
+    if($puntajeFinal>0){//Va a determinar el puntaje según las letras de la palabra
+        $separarPalabra = str_split($palabra);//str_split divide un texto y lo hace un arreglo de caracteres
+        $abc[0] = ["A","E","I","O","U"];
+        $abc[1] = ["B","C","D","F","G","H","J","K","L","M"];
+        $abc[2] = ["N","Ñ","P","Q","R","S","T","V","W","X","Y","Z"];
+
+        for($i=0;$i<5;$i++){
+            if(in_array($separarPalabra[$i], $abc[0])){//Si el valor de $separarPalabra esta en $abc[0], entonces dará true y se sumará un punto
+                $puntajeFinal = $puntajeFinal + 1;
+            } elseif (in_array($separarPalabra[$i], $abc[1])){
+                $puntajeFinal = $puntajeFinal + 2;
+            } elseif (in_array($separarPalabra[$i], $abc[2])){
+                $puntajeFinal = $puntajeFinal + 3;
+            }
+        }
+    }
+}
+
+
+
+/**
  * Modulo que retorna true 
  * @param array $letra, $grupo
  * @return boolean
  */
-function pertenece($letra,$grupo){
+/**function pertenece($letra,$grupo){
     //boolean $abecedario
     $abecedario=false;
-    foreach ($grupo as $key) {
-    if($key === $letra){
+    foreach ($grupo as $letrasArreglo) {
+    if($letrasArreglo === $letra){
             $abecedario=true;
         }
     }
     return $abecedario;
 }
-
+*/
 
 
 /**
@@ -358,7 +393,7 @@ function pertenece($letra,$grupo){
  * @param int $intentos
  * @return int
  */
-function obtenerPuntajeWordix($palabra, $intentos){
+/**function obtenerPuntajeWordix($palabra, $intentos){
     //array $separarPalabra (arreglo indexado, valores string que pertenecen a cada letra de la palabra)
     //array $abc (arreglo multidimensional, los 3 índices tienen un tipo de letra)
 
@@ -378,7 +413,7 @@ function obtenerPuntajeWordix($palabra, $intentos){
                 $perteneceAlGrupo=pertenece($letra2,$abc[0]);
                 if($perteneceAlGrupo){
                     $puntajeFinal = $puntajeFinal + 1;
-                } else{
+                } else {
                     $perteneceAlGrupo=pertenece($letra2, $abc[1]);
                     if ($perteneceAlGrupo) {
                         $puntajeFinal = $puntajeFinal + 2;
@@ -393,7 +428,7 @@ function obtenerPuntajeWordix($palabra, $intentos){
     }
     return $puntajeFinal;
 }
-
+*/
 
 
 /**
@@ -448,3 +483,120 @@ function jugarWordix($palabraWordix, $nombreUsuario)
 }
 
 
+
+/**
+ * Función que verifica que el usuario no repita la palabra
+ * @param array $collecionPalabras, $partidasCargadas
+ * @param string $usuario
+ */
+function palabraRepetida($collecionPalabras, $usuario, $partidasCargadas){
+    //int $cantPalabras, $numPalabraElegida, $palabrasUsadas, $cantPartidas
+    //string $palabraElegida
+    //boolean $controlPalabra, $control
+
+    $cantPalabras = count($collecionPalabras);
+    echo "Hay " .$cantPalabras. " palabras, seleccione una para jugar ";
+    $numPalabraElegida = solicitarNumeroEntre(1, $cantPalabras);
+    $numPalabraElegida = (int)$cantPalabras - 1;
+    $palabraElegida = $collecionPalabras[$numPalabraElegida];
+    $controlPalabra = true;
+    $indicePartidas = 0;
+    $cantPartidas = count($partidasCargadas);
+    while($controlPalabra) {
+        while($indicePartidas < $cantPartidas) {
+            if($partidasCargadas[$indicePartidas]["jugador"] == $usuario && $partidasCargadas[$indicePartidas]["palabraWordix"] == $palabraElegida) {
+                echo "esta palabra ya fue usada, elija otra. ";
+                $numPalabraElegida = solicitarNumeroEntre(1, $cantPalabras);
+                $numPalabraElegida = (int)$cantPalabras - 1;
+                $palabraElegida = $collecionPalabras[$numPalabraElegida];
+                $indicePartidas = 0;
+                $palabraFinal = opcionesFinales($collecionPalabras, $usuario, $partidasCargadas);
+                if($palabraFinal){
+                    $controlPalabra = false;
+                }
+
+            }
+        }
+
+    }
+}
+
+
+
+/**
+ * Funcion para jugar wordix con una palabra aleatoria
+ * @param array $collecionPalabrasAleatorias, $partidasCargadasAleatorias
+ * @param string $usuarioRandom
+ */
+function palabraRandom($collecionPalabrasAleatorias, $usuarioRandom, $partidasCargadasAleatorias) {
+    //int $indicePalabraAleatoria, $indiceAleatorio, $cantPartidasAleatorio
+    //string $palabraAleatoria
+    //boolean $controlPalabraAleatoria, $controlAleatorio
+
+    $indicePalabraAleatoria = array_rand($collecionPalabrasAleatorias);//array_rand va a devolver una palabra aleatoria.
+    $palabraAleatoria = $collecionPalabrasAleatorias[$indicePalabraAleatoria];
+    $indiceAleatorio = 0;
+    $cantPartidasAleatorio = count($partidasCargadasAleatorias);
+    $controlPalabraAleatoria = true;
+    $controlAleatorio = false;
+
+}
+
+
+
+/**
+ * Funcion para cuando el jugador se quede sin palabras para jugar.
+ * @param array $collecionFinal, $partidasFinal
+ * @param string $usuarioFinal
+ * @return boolean
+ */
+function opcionesFinales($collecionPalabrasFinal, $usuarioFinal, $partidasFinal) {
+    //int $cantPalabrasFinal, $cantPartidasFinal
+    //boolean $resultadoFinal
+    $cantPalabrasFinal = count($collecionPalabrasFinal);
+    $cantPartidasFinal = 0;
+    $resultadoFinal = false;
+    foreach($partidasFinal as $totalPartidas){
+        if($totalPartidas["jugador"] == $usuarioFinal){
+            $cantPartidasFinal = $cantPartidasFinal + 1;
+        }
+        if($cantPalabrasFinal == $cantPartidasFinal){
+            echo "Ya se jugaron todas las partidas. ";
+            $resultadoFinal = true;
+        }
+
+    }
+
+    return $resultadoFinal;
+}
+
+
+
+/**
+ * Mostrar primer partida ganadora de un usuario
+ * @param string $nombre
+ * @param array $listaDePartidas (Funcion cargarPartidas)
+ * @return int
+ */
+function mostrarPartidaGanadora($nombre, $listaDePartidas){
+    //int $indiceDePartidaGanada, $cantPartidasListado
+    //array $partidaGanada
+    //boolean $condicion
+    $condicion = false;
+    $indiceDePartidaGanada = 0;
+    $cantPartidasListado = count($listaDePartidas);
+    $partidaGanada = [];
+
+    while($indiceDePartidaGanada < $cantPartidasListado && !$condicion){
+        if($listaDePartidas[$indiceDePartidaGanada]["jugador"] == $nombre){
+            $partidaGanada = $listaDePartidas[$indiceDePartidaGanada];
+        }
+        if ($partidaGanada["jugador"] == $nombre && $partidaGanada["puntaje"] > 0){
+            $condicion = true;
+            $indiceDePartidaGanada;
+        } else {
+            $partidaGanada = $partidaGanada + 1;
+        }
+    }
+    return $indiceDePartidaGanada;
+}
