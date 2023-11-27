@@ -291,7 +291,7 @@ function solicitarJugador(){
     }
 
 /**
- * Modulo 11
+ * Modulo 11.
  * @param array $collec
  */
 
