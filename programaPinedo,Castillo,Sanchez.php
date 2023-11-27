@@ -108,14 +108,14 @@ function datosPartida($numPartida) {
     if($numPartida>0 && $numPartida<=count($todasLasPartidas)){
         $menos=1;
         $datosDePartida= $todasLasPartidas[$numPartida - $menos];
-        $infoPartida="Partida WORDIX $numPartida: palabra ". $datosDePartida["palabraWordix"]. "\n".
+        $infoPartida="******************\n"."Partida WORDIX $numPartida: palabra ". $datosDePartida["palabraWordix"]. "\n".
         "Jugador: " . $datosDePartida["jugador"]. "\n".
         "Puntaje: ". $datosDePartida["puntaje"]. " puntos \n";
         if($datosDePartida["puntaje"]>0){
-            $infoPartida.="Adivinó la palabra en ".$datosDePartida["intentos"]." intentos \n";
+            $infoPartida.="Adivinó la palabra en ".$datosDePartida["intentos"]." intentos \n"."******************\n";
         }
         else{
-            $infoPartida.="No adivinó la palabra";
+            $infoPartida.="No adivinó la palabra"."\n******************\n";
         }
        }
 
@@ -309,12 +309,12 @@ function solicitarJugador(){
 
 //Inicialización de variables:
 $coleccionPartidas=cargarPartidas();
-$numAnterior=0;
 $palabras=cargarColeccionPalabras();
 $palabrasDisponibles = cargarColeccionPalabras();
 $coleccionPalabras= cargarColeccionPalabras();
 $cantDePalabras=count(cargarColeccionPalabras());
 $palabrasRep = [];
+$palabraYaJugada = [];
 //Proceso:
 
 
@@ -330,13 +330,13 @@ do {
     switch ($opcion) {
         case 1: 
             $pedirNombre = solicitarJugador();
-            $menos=1;
             echo "Ingrese numero de palabra entre 1 y " . ($cantDePalabras) . " :" ;
             $numeroPalabras = solicitarNumeroEntre(1, $cantDePalabras);
-            $numeroPalabras = $numeroPalabras -1;
+            $numeroPalabras = $numeroPalabras - 1;
             $numeroRepetido = false;
-                foreach ($palabrasRep as $palabraUsada) {
-                    if ($palabraUsada === $numeroPalabras) {
+            $palabra = $palabras[$numeroPalabras];
+                foreach ($coleccionPartidas as $palabraUsada) {
+                    if ($palabraUsada["palabraWordix"] === $palabra && $palabraUsada["jugador"]==$pedirNombre) {
                         echo "Número de palabra ya jugado.\n";
                         $numeroRepetido = true; 
                     }
@@ -350,33 +350,11 @@ do {
         case 2: 
             $pedirNombre= solicitarJugador();
             $palabrasDisponibles = cargarColeccionPalabras();
+            $indiceAleatoria = array_rand($palabrasDisponibles);//array_rand va a devolver una palabra aleatoria.
+            $palabraAleatoria = $indiceAleatoria;
+            $palabra = $palabras[$palabraAleatoria];
+            $partida = jugarWordix($palabra, $pedirNombre);
             
-            $palabraElegida= "";
-            $palabraRepetiva=false;
-            do{
-                $palabraElegida = $palabrasDisponibles[array_rand($palabrasDisponibles)];
-
-                //*Verificar si la palabra ya se jugo
-                $palabraRepetiva=false;
-                foreach($coleccionPartidas as $partida){
-                    if (isset($partida["palabra"]) && $partida["palabra"] == $palabraElegida){
-                        $palabraRepetiva=true;
-                        break;
-                    }
-                }
-
-                if (!$palabraRepetiva){
-                    $partida= jugarWordix($palabraElegida, strtolower($pedirNombre));
-                    $coleccionPartidas[]= $partida;
-                }else{
-                     echo "La palabra ya se utilizo anteriormente. Se le generara otra a continuacion.. \n";
-                     $palabraRepetiva=false; // Restablecer la bandera para el próximo intento
-                }
-
-            }while($palabraRepetiva);
-
-            $partida= jugarWordix($palabraElegida, strtolower($pedirNombre));
-            $coleccionPartidas[]=  $partida;
 
             break;
         case 3: 
