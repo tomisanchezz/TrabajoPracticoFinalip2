@@ -314,6 +314,7 @@ $coleccionPartidas=cargarPartidas();
 $numAnterior=0;
 $palabras=cargarColeccionPalabras();
 $palabrasDisponibles = cargarColeccionPalabras();
+$coleccionPalabras= cargarColeccionPalabras();
 //Proceso:
 
 
@@ -413,6 +414,19 @@ do {
             echo($resumen[1]);
             echo($resumen[2]);
             break;
+        case 6:
+            break;
+        case 7:
+            $nuevaPalabra= leerPalabra5Letras();
+
+            $collePalabra= agregarPalabra($coleccionPalabras,$nuevaPalabra);
+
+            $coleccionPalabras = $collePalabra;
+            echo "¡Felicidades tu palabra se guardo correctamente!";
+            break;
+        case 8;
+        $opcionElegida = false;
+        break;
             
     }
 } while ($opcionElegida == true );
