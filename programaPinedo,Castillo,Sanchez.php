@@ -407,14 +407,14 @@ do {
             echo($primeraVic);
             break;
         case 5:
-            echo"ingrese nombre: ";
-            $nombree=trim(fgets(STDIN));
+            $nombree=solicitarJugador();
             $resumen=resumenJugador($nombree, $coleccionPartidas);
             echo($resumen[0]);
             echo($resumen[1]);
             echo($resumen[2]);
             break;
         case 6:
+            $partidasOrdenadas = partidasOrdenadas($coleccionPartidas);
             break;
         case 7:
             $nuevaPalabra= leerPalabra5Letras();
