@@ -336,7 +336,7 @@ do {
             do{
                 echo ("Numero incorrecto, ingrese un numero entre 1 y ". $cantDePalabras. " para empezar a jugar: ");
                 $numElegido=trim(fgets(STDIN));
-            }while($numElegido<1 OR $numElegido>$cantDePalabras);
+            }while($numElegido<1 || $numElegido>$cantDePalabras);
 
             if($numElegido  == $numAnterior ){
                     echo "Ya utilizo este numero, ingrese otro";
@@ -351,11 +351,32 @@ do {
         case 2: 
             $pedirNombre= solicitarJugador();
             $palabrasDisponibles = cargarColeccionPalabras();
+            
+            $palabraElegida= "";
+            $palabraRepetiva=false;
+            do{
+                $palabraElegida = $palabrasDisponibles[array_rand($palabrasDisponibles)];
 
-            $palabraElegida = $palabrasDisponibles[array_rand($palabrasDisponibles)];
+                //*Verificar si la palabra ya se jugo
+                $palabraRepetiva=false;
+                foreach($coleccionPartidas as $partida){
+                    if (isset($partida["palabra"]) && $partida["palabra"] == $palabraElegida){
+                        $palabraRepetiva=true;
+                        break;
+                    }
+                }
+
+                if (!$palabraRepetiva){
+                    $partida= jugarWordix($palabraElegida, strtolower($pedirNombre));
+                    $coleccionPartidas[]= $partida;
+                }else{
+                     echo "La palabra ya se utilizo anteriormente. Se le generara otra a continuacion.. \n";
+                     $palabraRepetiva=false; // Restablecer la bandera para el próximo intento
+                }
+
+            }while($palabraRepetiva);
 
             $partida= jugarWordix($palabraElegida, strtolower($pedirNombre));
-
             $coleccionPartidas[]=  $partida;
 
             break;
