@@ -105,7 +105,7 @@ function seleccionarOpcion(){
  */
 function datosPartida($numPartida) {
     $todasLasPartidas=cargarPartidas();
-    if($numPartida>=0 && $numPartida<=count($todasLasPartidas)){
+    if($numPartida>0 && $numPartida<=count($todasLasPartidas)){
         $menos=1;
         $datosDePartida= $todasLasPartidas[$numPartida - $menos];
         $infoPartida="Partida WORDIX $numPartida: palabra ". $datosDePartida["palabraWordix"]. "\n".
@@ -384,7 +384,7 @@ do {
         case 3: 
                 $partidasDisponibles= count(cargarPartidas());
                 
-                echo("Ingrese el numero de la partida que quiere ver entre 1 y $partidasDisponibles ");
+                echo("Ingrese el numero de la partida que quiere ver entre 1 y $partidasDisponibles: ");
                 $numPartida=trim(fgets(STDIN));
                 $datoPartida3=  datosPartida($numPartida);
                 echo $datoPartida3;
