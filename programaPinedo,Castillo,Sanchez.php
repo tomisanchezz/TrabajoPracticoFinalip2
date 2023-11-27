@@ -49,16 +49,16 @@ function cargarColeccionPalabras()
  * */ 
 function cargarPartidas(){
 
-    $partida[0]= array("palabraWordix" => "TINTO", "jugador" => "Valentina", "intentos" => 1, "puntaje" => 14);
-    $partida[1]= array("palabraWordix" => "TINTO", "jugador" => "Valentina", "intentos" => 6, "puntaje" => 0);  
-    $partida[2]= array("palabraWordix" => "PERRO", "jugador" => "Maria", "intentos" => 4, "puntaje" => 13); 
-    $partida[3]= array("palabraWordix" => "ARBOL", "jugador" => "Pedro", "intentos" => 3, "puntaje" => 13); 
-    $partida[4]= array("palabraWordix" => "GATOS", "jugador" => "Tomas", "intentos" => 6, "puntaje" => 0); 
-    $partida[5]= array("palabraWordix" => "MUJER", "jugador" => "Tomas", "intentos" => 0, "puntaje" => 0); 
-    $partida[6]= array("palabraWordix" => "VERDE", "jugador" => "Alejandro", "intentos" => 3, "puntaje" => 14); 
-    $partida[7]= array("palabraWordix" => "MELON", "jugador" => "Martin", "intentos" => 2, "puntaje" => 15); 
-    $partida[8]= array("palabraWordix" => "HUEVO", "jugador" => "Javier", "intentos" => 5, "puntaje" => 9); 
-    $partida[9]= array("palabraWordix" => "GOTAS", "jugador" => "Emanuel", "intentos" => 2, "puntaje" => 15); 
+    $partida[0]= array("palabraWordix" => "TINTO", "jugador" => "valentina", "intentos" => 1, "puntaje" => 14);
+    $partida[1]= array("palabraWordix" => "TINTO", "jugador" => "valentina", "intentos" => 6, "puntaje" => 0);  
+    $partida[2]= array("palabraWordix" => "PERRO", "jugador" => "maria", "intentos" => 4, "puntaje" => 13); 
+    $partida[3]= array("palabraWordix" => "ARBOL", "jugador" => "pedro", "intentos" => 3, "puntaje" => 13); 
+    $partida[4]= array("palabraWordix" => "GATOS", "jugador" => "tomas", "intentos" => 6, "puntaje" => 0); 
+    $partida[5]= array("palabraWordix" => "MUJER", "jugador" => "tomas", "intentos" => 0, "puntaje" => 0); 
+    $partida[6]= array("palabraWordix" => "VERDE", "jugador" => "alejandro", "intentos" => 3, "puntaje" => 14); 
+    $partida[7]= array("palabraWordix" => "MELON", "jugador" => "martin", "intentos" => 2, "puntaje" => 15); 
+    $partida[8]= array("palabraWordix" => "HUEVO", "jugador" => "javier", "intentos" => 5, "puntaje" => 9); 
+    $partida[9]= array("palabraWordix" => "GOTAS", "jugador" => "emanuel", "intentos" => 2, "puntaje" => 15); 
 
     return $partida;
 } 
@@ -161,7 +161,7 @@ function primerPartida($collecPartida,$jugador){
         $i++;
     }
     $i+=1;
-    if($vic==true){
+    if($vic){
         $partidaGanada="******************\n".
             "Partida WORDIX ". ($i).": palabra " . $collecPartida[$i]["palabraWordix"]."\n".
             "Jugador: ". $collecPartida[$i]["jugador"]. "\n".
@@ -262,7 +262,7 @@ function solicitarJugador(){
             break;
     }
     while($nombre[0] != ctype_alpha($nombre[0])){//verifica que el primer caracter sea una letra y se repite hasta q empiece por una letra.
-        echo "Ingrese su nombre con el 1er caracter como una letra ";
+        echo "\nIngrese su nombre con el 1er caracter como una letra \n";
         $nombre=trim(fgets(STDIN));
         switch ($nombre) {
             case "":
@@ -386,7 +386,7 @@ do {
             echo($primeraVic);
             break;
         case 5:
-            echo"ingresenombre: ";
+            echo"ingrese nombre: ";
             $nombree=trim(fgets(STDIN));
             $resumen=resumenJugador($nombree, $coleccionPartidas);
             echo($resumen[0]);

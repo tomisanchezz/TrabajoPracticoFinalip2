@@ -489,6 +489,7 @@ function jugarWordix($palabraWordix, $nombreUsuario)
  * Función que verifica que el usuario no repita la palabra
  * @param array $collecionPalabras, $partidasCargadas
  * @param string $usuario
+ * @return boolean
  */
 function palabraRepetida($collecionPalabras, $usuario, $partidasCargadas){
     //int $cantPalabras, $numPalabraElegida, $palabrasUsadas, $cantPartidas
@@ -520,6 +521,7 @@ function palabraRepetida($collecionPalabras, $usuario, $partidasCargadas){
         }
 
     }
+    return $controlPalabra;
 }
 
 
@@ -540,6 +542,7 @@ function palabraRandom($collecionPalabrasAleatorias, $usuarioRandom, $partidasCa
     $cantPartidasAleatorio = count($partidasCargadasAleatorias);
     $controlPalabraAleatoria = true;
     $controlAleatorio = false;
+    
 
 }
 
@@ -600,4 +603,23 @@ function mostrarPartidaGanadora($nombre, $listaDePartidas){
         }
     }
     return $indiceDePartidaGanada;
+}
+
+
+
+/**
+ * Modulo que verifica si el usuario existe
+ * @param string $user
+ * @param array $partidasLista (Funcion cargarPartidas)
+ * @return boolean
+ */
+function usuarioExiste($user, $partidasLista){
+    //boolean $existe
+    $existe = false;
+    foreach($partidasLista as $partidasExisten){
+        if($partidasExisten["jugador"] == $user){
+            $existe = true;
+        }
+    }
+    return $existe;
 }
