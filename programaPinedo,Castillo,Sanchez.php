@@ -335,16 +335,18 @@ do {
             $palabrasDisponibles = cargarColeccionPalabras();
             echo "Selecciona un numero entre 1 y ". $cantDePalabras. " para empezar a jugar: ";
             $numElegido=trim(fgets(STDIN));
-            do{
+            while($numElegido<0 || $numElegido>=$cantDePalabras){
                 echo ("Numero incorrecto, ingrese un numero entre 1 y ". $cantDePalabras. " para empezar a jugar: ");
                 $numElegido=trim(fgets(STDIN));
-            }while($numElegido<1 || $numElegido>$cantDePalabras);
+               
+            }
 
             if($numElegido  == $numAnterior ){
                     echo "Ya utilizo este numero, ingrese otro";
                     $numElegido=trim(fgets(STDIN));
+                    
                 }
-
+            $numElegido= $numElegido-1;
             $numAnterior = $numElegido;
             $partida= jugarWordix($palabras[$numElegido], strtolower($pedirNombre)) ;
             $coleccionPartidas[]=  $partida;
@@ -392,9 +394,9 @@ do {
             if($datoPartida3 == "El numero de partida no existe."){
                 do{
                     echo("Ingrese el numero de la partida que quiere ver: ");
-            $numPartida=trim(fgets(STDIN));
-            $datoPartida3=  datosPartida($numPartida);
-            echo $datoPartida3;
+                    $numPartida=trim(fgets(STDIN));
+                    $datoPartida3=  datosPartida($numPartida);
+                    echo $datoPartida3;
                 }while($datoPartida3 =="El numero de partida no existe.");
             }
         
