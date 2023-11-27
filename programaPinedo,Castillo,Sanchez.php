@@ -315,6 +315,7 @@ $numAnterior=0;
 $palabras=cargarColeccionPalabras();
 $palabrasDisponibles = cargarColeccionPalabras();
 $coleccionPalabras= cargarColeccionPalabras();
+$collec = [];
 //Proceso:
 
 
@@ -415,6 +416,7 @@ do {
             echo($resumen[2]);
             break;
         case 6:
+            partidasOrdenadas($collec);
             break;
         case 7:
             $nuevaPalabra= leerPalabra5Letras();
