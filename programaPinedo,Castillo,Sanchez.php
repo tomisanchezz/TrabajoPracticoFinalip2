@@ -314,6 +314,7 @@ $palabras=cargarColeccionPalabras();
 $palabrasDisponibles = cargarColeccionPalabras();
 $coleccionPalabras= cargarColeccionPalabras();
 $cantDePalabras=count(cargarColeccionPalabras());
+$palabrasRep = [];
 //Proceso:
 
 
@@ -328,25 +329,23 @@ do {
 
     switch ($opcion) {
         case 1: 
-            $pedirNombre= solicitarJugador();
-            $palabrasDisponibles = cargarColeccionPalabras();
-            echo "Selecciona un numero entre 1 y ". $cantDePalabras. " para empezar a jugar: ";
-            $numElegido=trim(fgets(STDIN));
-            while($numElegido<0 || $numElegido>=$cantDePalabras){
-                echo ("Numero incorrecto, ingrese un numero entre 1 y ". $cantDePalabras. " para empezar a jugar: ");
-                $numElegido=trim(fgets(STDIN));
-               
-            }
-
-            if ($numElegido < 0 || $numElegido >= $cantDePalabras || $numElegido == $numAnterior) {
-                echo "Número incorrecto o ya utilizado, ingrese otro entre 1 y $cantDePalabras: ";
-                $numElegido = trim(fgets(STDIN));
-            }
-            $numElegido= $numElegido-1;
-            $numAnterior = $numElegido;
-            $partida= jugarWordix($palabras[$numElegido], strtolower($pedirNombre)) ;
-            $coleccionPartidas[] = $partida;
-            print_r($coleccionPartidas);
+            $pedirNombre = solicitarJugador();
+            $menos=1;
+            echo "Ingrese numero de palabra entre 1 y " . ($cantDePalabras) . " :" ;
+            $numeroPalabras = solicitarNumeroEntre(1, $cantDePalabras);
+            $numeroPalabras = $numeroPalabras -1;
+            $numeroRepetido = false;
+                foreach ($palabrasRep as $palabraUsada) {
+                    if ($palabraUsada === $numeroPalabras) {
+                        echo "Número de palabra ya jugado.\n";
+                        $numeroRepetido = true; 
+                    }
+                }
+                if (!$numeroRepetido) {
+                    $palabrasJugadas[] = $numeroPalabras;
+                    $partida = jugarWordix($coleccionPalabras[$numeroPalabras], $pedirNombre);
+                    $coleccionPartidas[] = $partida;
+                }
             break;
         case 2: 
             $pedirNombre= solicitarJugador();
@@ -382,7 +381,6 @@ do {
             break;
         case 3: 
                 $partidasDisponibles= count(cargarPartidas());
-                
                 echo("Ingrese el numero de la partida que quiere ver entre 1 y $partidasDisponibles: ");
                 $numPartida=trim(fgets(STDIN));
                 $datoPartida3=  datosPartida($numPartida);
