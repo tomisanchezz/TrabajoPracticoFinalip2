@@ -253,7 +253,7 @@ function resumenJugador($nombreDeJugador,$partida){
  */
 function solicitarJugador(){
     //string $nombre
-    echo "Ingrese su nombre ";
+    echo "Ingrese su nombre: ";
     $nombre=trim(fgets(STDIN));
     $nombre=strtolower($nombre);//el nombre pasa a minúsculas
     switch ($nombre) {
@@ -270,8 +270,8 @@ function solicitarJugador(){
                 break;
         }
     } 
-    $nombre = strtolower($nombre);
-    return $nombre;
+    
+    return strtolower($nombre);
 }
 
 
@@ -314,6 +314,7 @@ $coleccionPartidas=cargarPartidas();
 $numAnterior=0;
 $palabras=cargarColeccionPalabras();
 $palabrasDisponibles = cargarColeccionPalabras();
+$coleccionPalabras= cargarColeccionPalabras();
 //Proceso:
 
 
@@ -323,8 +324,7 @@ $palabrasDisponibles = cargarColeccionPalabras();
     
 do {
     $opcion = seleccionarOpcion();
-    echo $opcion;
-    $opcionElegida=trim(fgets(STDIN));
+    $opcionElegida=true;
     $cantDePalabras=count(cargarColeccionPalabras());
 
     switch ($opcion) {
@@ -336,7 +336,7 @@ do {
             do{
                 echo ("Numero incorrecto, ingrese un numero entre 1 y ". $cantDePalabras. " para empezar a jugar: ");
                 $numElegido=trim(fgets(STDIN));
-            }while($numElegido<1 OR $numElegido>$cantDePalabras);
+            }while($numElegido<1 || $numElegido>$cantDePalabras);
 
             if($numElegido  == $numAnterior ){
                     echo "Ya utilizo este numero, ingrese otro";
@@ -351,11 +351,32 @@ do {
         case 2: 
             $pedirNombre= solicitarJugador();
             $palabrasDisponibles = cargarColeccionPalabras();
+            
+            $palabraElegida= "";
+            $palabraRepetiva=false;
+            do{
+                $palabraElegida = $palabrasDisponibles[array_rand($palabrasDisponibles)];
 
-            $palabraElegida = $palabrasDisponibles[array_rand($palabrasDisponibles)];
+                //*Verificar si la palabra ya se jugo
+                $palabraRepetiva=false;
+                foreach($coleccionPartidas as $partida){
+                    if (isset($partida["palabra"]) && $partida["palabra"] == $palabraElegida){
+                        $palabraRepetiva=true;
+                        break;
+                    }
+                }
+
+                if (!$palabraRepetiva){
+                    $partida= jugarWordix($palabraElegida, strtolower($pedirNombre));
+                    $coleccionPartidas[]= $partida;
+                }else{
+                     echo "La palabra ya se utilizo anteriormente. Se le generara otra a continuacion.. \n";
+                     $palabraRepetiva=false; // Restablecer la bandera para el próximo intento
+                }
+
+            }while($palabraRepetiva);
 
             $partida= jugarWordix($palabraElegida, strtolower($pedirNombre));
-
             $coleccionPartidas[]=  $partida;
 
             break;
@@ -393,6 +414,19 @@ do {
             echo($resumen[1]);
             echo($resumen[2]);
             break;
+        case 6:
+            break;
+        case 7:
+            $nuevaPalabra= leerPalabra5Letras();
+
+            $collePalabra= agregarPalabra($coleccionPalabras,$nuevaPalabra);
+
+            $coleccionPalabras = $collePalabra;
+            echo "¡Felicidades tu palabra se guardo correctamente!";
+            break;
+        case 8;
+        $opcionElegida = false;
+        break;
             
     }
-} while ($opcionElegida>=1 && $opcion<8);
+} while ($opcionElegida == true );
