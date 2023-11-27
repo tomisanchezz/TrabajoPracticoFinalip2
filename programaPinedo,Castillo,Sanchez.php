@@ -291,7 +291,7 @@ function solicitarJugador(){
     }
 
 /**
- * Modulo 11
+ * Modulo 11.
  * @param array $collec
  */
 
@@ -315,6 +315,7 @@ $numAnterior=0;
 $palabras=cargarColeccionPalabras();
 $palabrasDisponibles = cargarColeccionPalabras();
 $coleccionPalabras= cargarColeccionPalabras();
+$collec = [];
 //Proceso:
 
 
@@ -415,6 +416,7 @@ do {
             break;
         case 6:
             $partidasOrdenadas = partidasOrdenadas($coleccionPartidas);
+            partidasOrdenadas($collec);
             break;
         case 7:
             $nuevaPalabra= leerPalabra5Letras();
