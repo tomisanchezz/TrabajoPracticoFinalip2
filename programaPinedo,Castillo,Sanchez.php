@@ -151,16 +151,17 @@ function datosPartida($numPartida) {
  * @return int
  */
 function primerPartida($collecPartida,$jugador){
-    
+    $i=0;
     $vic=false;
-    for ($i = 0; $i < count($collecPartida); ){
-        if($collecPartida[$i]["jugador"]==$jugador && $collecPartida[$i]["puntaje"]>0){
+    foreach($collecPartida as $elemento){
+        
+        if($elemento["jugador"]==$jugador && $elemento["puntaje"]>0){
             $vic=true;
             break;
         }
         $i++;
     }
-    $i+=1;
+    
     if($vic){
         $partidaGanada="******************\n".
             "Partida WORDIX ". ($i).": palabra " . $collecPartida[$i]["palabraWordix"]."\n".
@@ -315,6 +316,7 @@ $numAnterior=0;
 $palabras=cargarColeccionPalabras();
 $palabrasDisponibles = cargarColeccionPalabras();
 $coleccionPalabras= cargarColeccionPalabras();
+$cantDePalabras=count(cargarColeccionPalabras());
 //Proceso:
 
 
@@ -325,7 +327,7 @@ $coleccionPalabras= cargarColeccionPalabras();
 do {
     $opcion = seleccionarOpcion();
     $opcionElegida=true;
-    $cantDePalabras=count(cargarColeccionPalabras());
+    
 
     switch ($opcion) {
         case 1: 
@@ -399,16 +401,14 @@ do {
 
             break;
         case 4:
-
-            echo("ingrese nombre");
-            $nombree=trim(fgets(STDIN));
+            $nombre=solicitarJugador();
             $p=cargarPartidas();
-            $primeraVic=primerPartida($p, $nombree);
+            $primeraVic=primerPartida($p, $nombre);
             echo($primeraVic);
             break;
         case 5:
-            $nombree=solicitarJugador();
-            $resumen=resumenJugador($nombree, $coleccionPartidas);
+            $nombre=solicitarJugador();
+            $resumen=resumenJugador($nombre, $coleccionPartidas);
             echo($resumen[0]);
             echo($resumen[1]);
             echo($resumen[2]);
