@@ -105,10 +105,8 @@ function seleccionarOpcion(){
  */
 function datosPartida($numPartida) {
     $todasLasPartidas=cargarPartidas();
-    
-    if($numPartida>=0 && $numPartida<count($todasLasPartidas)){
+    if($numPartida>=0 && $numPartida<=count($todasLasPartidas)){
         $menos=1;
-        
         $datosDePartida= $todasLasPartidas[$numPartida - $menos];
         $infoPartida="Partida WORDIX $numPartida: palabra ". $datosDePartida["palabraWordix"]. "\n".
         "Jugador: " . $datosDePartida["jugador"]. "\n".
@@ -119,7 +117,6 @@ function datosPartida($numPartida) {
         else{
             $infoPartida.="No adivinó la palabra";
         }
-
        }
 
     else{
@@ -385,23 +382,24 @@ do {
 
             break;
         case 3: 
-            
-            echo("Ingrese el numero de la partida que quiere ver: ");
-            $numPartida=trim(fgets(STDIN));
-            $datoPartida3=  datosPartida($numPartida);
-            echo $datoPartida3;
-        
-            if($datoPartida3 == "El numero de partida no existe."){
-                do{
-                    echo("Ingrese el numero de la partida que quiere ver: ");
-                    $numPartida=trim(fgets(STDIN));
-                    $datoPartida3=  datosPartida($numPartida);
-                    echo $datoPartida3;
-                }while($datoPartida3 =="El numero de partida no existe.");
-            }
-        
-
-            break;
+                $partidasDisponibles= count(cargarPartidas());
+                
+                echo("Ingrese el numero de la partida que quiere ver entre 1 y $partidasDisponibles ");
+                $numPartida=trim(fgets(STDIN));
+                $datoPartida3=  datosPartida($numPartida);
+                echo $datoPartida3;
+    
+                if($datoPartida3 == "El numero de partida no existe."){
+                    do{
+                        echo("Ingrese el numero de la partida que quiere ver: ");
+                $numPartida=trim(fgets(STDIN));
+                $datoPartida3=  datosPartida($numPartida);
+                echo $datoPartida3;
+                    }while($datoPartida3 =="El numero de partida no existe.");
+                }
+    
+    
+                break;
         case 4:
             $nombre=solicitarJugador();
             $p=cargarPartidas();
