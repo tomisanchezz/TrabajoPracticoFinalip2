@@ -338,16 +338,15 @@ do {
                
             }
 
-            if($numElegido  == $numAnterior ){
-                    echo "Ya utilizo este numero, ingrese otro";
-                    $numElegido=trim(fgets(STDIN));
-                    
-                }
+            if ($numElegido < 0 || $numElegido >= $cantDePalabras || $numElegido == $numAnterior) {
+                echo "Número incorrecto o ya utilizado, ingrese otro entre 1 y $cantDePalabras: ";
+                $numElegido = trim(fgets(STDIN));
+            }
             $numElegido= $numElegido-1;
             $numAnterior = $numElegido;
             $partida= jugarWordix($palabras[$numElegido], strtolower($pedirNombre)) ;
-            $coleccionPartidas[]=  $partida;
-
+            $coleccionPartidas[] = $partida;
+            print_r($coleccionPartidas);
             break;
         case 2: 
             $pedirNombre= solicitarJugador();
