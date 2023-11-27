@@ -253,7 +253,7 @@ function resumenJugador($nombreDeJugador,$partida){
  */
 function solicitarJugador(){
     //string $nombre
-    echo "Ingrese su nombre ";
+    echo "Ingrese su nombre: ";
     $nombre=trim(fgets(STDIN));
     $nombre=strtolower($nombre);//el nombre pasa a minúsculas
     switch ($nombre) {
@@ -270,8 +270,8 @@ function solicitarJugador(){
                 break;
         }
     } 
-    $nombre = strtolower($nombre);
-    return $nombre;
+    
+    return strtolower($nombre);
 }
 
 
@@ -323,8 +323,7 @@ $palabrasDisponibles = cargarColeccionPalabras();
     
 do {
     $opcion = seleccionarOpcion();
-    echo $opcion;
-    $opcionElegida=trim(fgets(STDIN));
+    $opcionElegida=true;
     $cantDePalabras=count(cargarColeccionPalabras());
 
     switch ($opcion) {
@@ -416,4 +415,4 @@ do {
             break;
             
     }
-} while ($opcionElegida>=1 && $opcion<8);
+} while ($opcionElegida == true );
