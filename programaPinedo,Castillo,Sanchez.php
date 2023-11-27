@@ -57,7 +57,7 @@ function cargarPartidas(){
     $partida[5]= array("palabraWordix" => "MUJER", "jugador" => "Tomas", "intentos" => 0, "puntaje" => 0); 
     $partida[6]= array("palabraWordix" => "VERDE", "jugador" => "Alejandro", "intentos" => 3, "puntaje" => 14); 
     $partida[7]= array("palabraWordix" => "MELON", "jugador" => "Martin", "intentos" => 2, "puntaje" => 15); 
-    $partida[8]= array("palabraWordix" => "HUEVO", "jugador" => "Javie", "intentos" => 5, "puntaje" => 9); 
+    $partida[8]= array("palabraWordix" => "HUEVO", "jugador" => "Javier", "intentos" => 5, "puntaje" => 9); 
     $partida[9]= array("palabraWordix" => "GOTAS", "jugador" => "Emanuel", "intentos" => 2, "puntaje" => 15); 
 
     return $partida;
@@ -151,15 +151,33 @@ function datosPartida($numPartida) {
  * @return int
  */
 function primerPartida($collecPartida,$jugador){
-    //int $partidaGanada
-    $partidaGanada=-1;
-    foreach($collecPartida as $value){
-        if ($value["jugador"]==$jugador && $value["puntaje"]>0){
-            $partidaGanada=$value;
+    
+    $vic=false;
+    for ($i = 0; $i < count($collecPartida); ){
+        if($collecPartida[$i]["jugador"]==$jugador && $collecPartida[$i]["puntaje"]>0){
+            $vic=true;
+            break;
         }
+        $i++;
+    }
+    $i+=1;
+    if($vic==true){
+        $partidaGanada="******************\n".
+            "Partida WORDIX ". ($i).": palabra " . $collecPartida[$i]["palabraWordix"]."\n".
+            "Jugador: ". $collecPartida[$i]["jugador"]. "\n".
+            "Puntaje: ".$collecPartida[$i]["puntaje"]."\n".
+            "Intento: Adivinó la palabra en ". $collecPartida[$i]["intentos"]." intentos \n".
+            "******************\n";
+    }
+    else{
+        $partidaGanada="El jugador $jugador no ganó ninguna partida.";
     }
     return $partidaGanada;
 }
+            
+        
+    
+
 /** Modulo 9
  *  Este modulo retorna un string que comparte informacion sobre un jugador solicitado por el usuario
  * @param string $nombreDeJugador, $buscarJugador
@@ -359,6 +377,14 @@ do {
         
 
             break;
+        case 4:
+
+            echo("ingrese nombre");
+            $nombree=trim(fgets(STDIN));
+            $p=cargarPartidas();
+            $primeraVic=primerPartida($p, $nombree);
+            echo($primeraVic);
+            break;
         case 5:
             echo"ingresenombre: ";
             $nombree=trim(fgets(STDIN));
@@ -368,6 +394,5 @@ do {
             echo($resumen[2]);
             break;
             
-        
     }
 } while ($opcionElegida>=1 && $opcion<8);
