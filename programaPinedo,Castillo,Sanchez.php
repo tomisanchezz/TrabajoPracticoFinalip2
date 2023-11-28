@@ -302,9 +302,9 @@ function solicitarJugador(){
 
 //Declaración de variables:
 //array $palabrasRep, $palabraYaJugada, $palabrasJugadas, $palabrasRep, $palabra, $coleccionPartidas, $coleccionPalabras
-//boolean $opcionElegida, $numeroRepetido, $palabraUsada
-//int $opcion, $cantDePalabras, $numeroPalabras, 
-//string $pedirNombre
+//boolean $opcionElegida, $numeroRepetido, $palabraUsada, $usuarioExiste
+//int $opcion, $cantDePalabras, $numeroPalabras, $cantPalabrasRep, $palbrasJugadas, $partidasDisponibles, $numPartida
+//string $pedirNombre, $indiceAleatorio,$palabraAleatoria, $palabraNueva,$palabraUsada, $respuesta, $primeraVic, $resumen, $partidasOrdenadas, $nuevaPalabra, $palabraAgregada
 
 //Inicialización de variables:
 $coleccionPartidas=cargarPartidas();
@@ -410,8 +410,8 @@ do {
             }
             break;
         case 5:
-            $nombre=solicitarJugador();
-            $resumen=resumenJugador($nombre, $coleccionPartidas);
+            $pedirNombre=solicitarJugador();
+            $resumen=resumenJugador($pedirNombre, $coleccionPartidas);
             echo($resumen[0]);
             echo($resumen[1]);
             echo($resumen[2]);
