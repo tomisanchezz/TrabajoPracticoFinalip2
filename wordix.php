@@ -339,6 +339,7 @@ function esIntentoGanado($estructuraPalabraIntento)
  * @param string $palabra
  * @param int $intentos
  * @return int
+ * 
  */
 function obtenerPuntajeWordix($palabra, $intentos){
     //array $separarPalabra (arreglo indexado, valores string que pertenecen a cada letra de la palabra)
@@ -376,7 +377,7 @@ function obtenerPuntajeWordix($palabra, $intentos){
  * @param array $letra, $grupo
  * @return boolean
  */
-/**function pertenece($letra,$grupo){
+/*function pertenece($letra,$grupo){
     //boolean $abecedario
     $abecedario=false;
     foreach ($grupo as $letrasArreglo) {
@@ -394,7 +395,7 @@ function obtenerPuntajeWordix($palabra, $intentos){
  * @param int $intentos
  * @return int
  */
-/**function obtenerPuntajeWordix($palabra, $intentos){
+/*function obtenerPuntajeWordix($palabra, $intentos){
     //array $separarPalabra (arreglo indexado, valores string que pertenecen a cada letra de la palabra)
     //array $abc (arreglo multidimensional, los 3 índices tienen un tipo de letra)
 
@@ -481,82 +482,4 @@ function jugarWordix($palabraWordix, $nombreUsuario)
     ];
 
     return $partida;
-}
-
-
-
-/**
- * Funcion para cuando el jugador se quede sin palabras para jugar.
- * @param array $collecionFinal, $partidasFinal
- * @param string $usuarioFinal
- * @return boolean
- */
-function opcionesFinales($collecionPalabrasFinal, $usuarioFinal, $partidasFinal) {
-    //int $cantPalabrasFinal, $cantPartidasFinal
-    //boolean $resultadoFinal
-    $cantPalabrasFinal = count($collecionPalabrasFinal);
-    $cantPartidasFinal = 0;
-    $resultadoFinal = false;
-    foreach($partidasFinal as $totalPartidas){
-        if($totalPartidas["jugador"] == $usuarioFinal){
-            $cantPartidasFinal = $cantPartidasFinal + 1;
-        }
-        if($cantPalabrasFinal == $cantPartidasFinal){
-            echo "Ya se jugaron todas las partidas. ";
-            $resultadoFinal = true;
-        }
-
-    }
-
-    return $resultadoFinal;
-}
-
-
-
-/**
- * Mostrar primer partida ganadora de un usuario
- * @param string $nombre
- * @param array $listaDePartidas (Funcion cargarPartidas)
- * @return int
- */
-function mostrarPartidaGanadora($nombre, $listaDePartidas){
-    //int $indiceDePartidaGanada, $cantPartidasListado
-    //array $partidaGanada
-    //boolean $condicion
-    $condicion = false;
-    $indiceDePartidaGanada = 0;
-    $cantPartidasListado = count($listaDePartidas);
-    $partidaGanada = [];
-
-    while($indiceDePartidaGanada < $cantPartidasListado && !$condicion){
-        if($listaDePartidas[$indiceDePartidaGanada]["jugador"] == $nombre){
-            $partidaGanada = $listaDePartidas[$indiceDePartidaGanada];
-        }
-        if ($partidaGanada["jugador"] == $nombre && $partidaGanada["puntaje"] > 0){
-            $condicion = true;
-            $indiceDePartidaGanada;
-        } else {
-            $partidaGanada = $partidaGanada + 1;
-        }
-    }
-    return $indiceDePartidaGanada;
-}
-
-
-
-/**
- * Modulo que verifica si el usuario existe
- * @param string $user
- * @param array $partidasLista (Funcion cargarPartidas)
- * @return boolean
- */
-function usuarioExiste($user, $partidasLista){
-    //boolean $existe
-    $existe = false;
-    foreach($partidasLista as $partidasExisten){
-        if($partidasExisten["jugador"] == $user){
-            $existe = true;
-        }
-    }
-    return $existe;
 }
