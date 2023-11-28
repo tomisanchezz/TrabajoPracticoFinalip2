@@ -301,7 +301,10 @@ function solicitarJugador(){
 /**************************************/
 
 //Declaración de variables:
-
+//array $palabrasRep, $palabraYaJugada, $palabrasJugadas, $palabrasRep, $palabra, $coleccionPartidas, $coleccionPalabras
+//boolean $opcionElegida, $numeroRepetido, $palabraUsada
+//int $opcion, $cantDePalabras, $numeroPalabras, 
+//string $pedirNombre
 
 //Inicialización de variables:
 $coleccionPartidas=cargarPartidas();

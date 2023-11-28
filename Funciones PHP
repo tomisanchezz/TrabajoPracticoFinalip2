@@ -1,0 +1,31 @@
+trim(fgets(STDIN)) = Es una combinación de funciones (trim y fgets), que te devuelve el valor ingresado por teclado.
+
+is_numeric() = Verifica que una variable sea un número, su parámetro de entrada es una variable y te devuelve un boolean
+
+echo = Se utiliza para mostrar un texto o variables en la salida.
+
+strtoupper() = Convierte un string a mayúsculas.
+
+strtolower() = Convierte un string a minúsculas.
+
+strlen() = Obtiene la longitud de caracteres de un string, y te devuelve un valor entero (la cantidad de caracteres).
+
+ctype_alpha() = Verifica que todos los caracteres de un string sean letras, devuelve un boolean.
+
+array_push() = Agrega 1 o más elementos a un array.
+
+in_array() = Verifica que un valor exista en un arreglo, si existe devuelve true y si no existe devuelve false.
+
+count() = Se utiliza para contar el número de elementos de un array.
+
+array_rand() = Selecciona una o más claves aleatorias de un array.
+
+array() = Crea un arreglo, su entrada puede ser una variable o puede estar vacio.
+
+strcasecmp() = Compara dos strings sin tener en cuenta las diferencias de mayúsculas y minúsculas.
+
+uasort() = Ordenar un array asociativo mediante una función de comparación definida por el usuario
+
+print_r() = Muestra información sobre una variable de una manera legible para humanos.
+
+str_split() = Se utiliza para dividir una cadena de texto en un array de caracteres.
