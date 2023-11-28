@@ -7,13 +7,10 @@ include_once("wordix.php");
 /***** DATOS DE LOS INTEGRANTES *******/
 /**************************************/
 // Sanchez, TOMAS. FAI-4494. TUDW. tomas.sanchez2004@est.fi.uncoma.edu.ar. tomisanchezz.
-// Pinedo, Emanuel. FAI-4871. TUDW emanuel.pinedo@est.fi.uncoma.edu.ar.
-// Javier, Castillo. FAI-4936. TUDW javier.castillo@est.fi.uncoma.edu.ar. JaviCast03
-/* Apellido, Nombre. Legajo. Carrera. mail. Usuario Github */
-/* ****COMPLETAR***** */
+// Pinedo, Emanuel. FAI-4871. TUDW emanuel.pinedo@est.fi.uncoma.edu.ar. emanuelPinedo.
+// Javier, Castillo. FAI-4936. TUDW javier.castillo@est.fi.uncoma.edu.ar. JaviCast03.
 
-
-/**************************************/
+/*************************************/
 /***** DEFINICION DE FUNCIONES ********/
 /**************************************/
 
@@ -26,7 +23,10 @@ function cargarColeccionPalabras()
 {
     
     $coleccionPalabras = [
-        "MUJER","QUESO"
+        "MUJER", "QUESO", "FUEGO", "CASAS", "RASGO",
+        "GATOS", "GOTAS", "HUEVO", "TINTO", "NAVES",
+        "VERDE", "MELON", "YUYOS", "PIANO", "PISOS", 
+        "ARBOL", "MUNDO", "PERRO", "VACAS", "MOUSE"
         
     ];
     
