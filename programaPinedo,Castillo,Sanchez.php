@@ -309,10 +309,7 @@ function solicitarJugador(){
 
 //Inicialización de variables:
 $coleccionPartidas=cargarPartidas();
-$palabras=cargarColeccionPalabras();
-$palabrasDisponibles = cargarColeccionPalabras();
 $coleccionPalabras= cargarColeccionPalabras();
-$cantDePalabras=count(cargarColeccionPalabras());
 $palabrasRep = [];
 $palabraYaJugada = [];
 //Proceso:
@@ -331,12 +328,12 @@ do {
         case 1: 
             $pedirNombre = solicitarJugador();
             $numeroRepetido = true;
-
+            $cantDePalabras=count($coleccionPalabras);
             while ($numeroRepetido) {
                 echo "Ingrese numero de palabra entre 1 y " . $cantDePalabras . " :";
                 $numeroPalabras = solicitarNumeroEntre(1, $cantDePalabras);
                 $numeroPalabras = $numeroPalabras - 1;
-                $palabra = $palabras[$numeroPalabras];
+                $palabra = $coleccionPalabras[$numeroPalabras];
                 $numeroRepetido = false;
                 foreach ($coleccionPartidas as $palabraUsada) {
                     if ($palabraUsada["palabraWordix"] === $palabra && $palabraUsada["jugador"] == $pedirNombre) {
@@ -349,18 +346,19 @@ do {
                     $palabrasRep[] = $numeroPalabras;
                     $partida = jugarWordix($coleccionPalabras[$numeroPalabras], $pedirNombre);
                     $coleccionPartidas[] = $partida;
+                    print_r($coleccionPartidas);
                 }
             }
             break;
 
             case 2:
                 $pedirNombre = solicitarJugador();
-                $palabrasDisponibles = cargarColeccionPalabras();
+                $coleccionPalabras = cargarColeccionPalabras();
                 $palabraUsada = true;
                 while ($palabraUsada) {
                     $palabraUsada = false;
-                    $indiceAleatoria = array_rand($palabrasDisponibles);
-                    $palabraAleatoria = $palabrasDisponibles[$indiceAleatoria]; // Accedemos a la palabra aleatoria
+                    $indiceAleatoria = array_rand($coleccionPalabras);
+                    $palabraAleatoria = $coleccionPalabras[$indiceAleatoria]; // Accedemos a la palabra aleatoria
             
                     foreach ($coleccionPartidas as $palabraNueva) {
                         if ($palabraNueva["palabraWordix"] === $palabraAleatoria && $palabraNueva["jugador"] == $pedirNombre) {
@@ -401,10 +399,9 @@ do {
             break;
         case 7:
             $nuevaPalabra= leerPalabra5Letras();
-
-            $collePalabra= agregarPalabra($coleccionPalabras,$nuevaPalabra);
-
-            $coleccionPalabras = $collePalabra;
+            $palabraAgregada=$coleccionPalabras;
+            $coleccionPalabras= agregarPalabra($palabraAgregada,$nuevaPalabra);
+            
             echo "¡Felicidades tu palabra se guardo correctamente!";
             break;
         case 8:
