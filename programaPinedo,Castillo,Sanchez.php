@@ -26,7 +26,10 @@ function cargarColeccionPalabras()
 {
     
     $coleccionPalabras = [
-        "MUJER", "QUESO", "FUEGO"
+        "MUJER", "QUESO", "FUEGO", "CASAS", "RASGO",
+        "GATOS", "GOTAS", "HUEVO", "TINTO", "NAVES",
+        "VERDE", "MELON", "YUYOS", "PIANO", "PISOS", 
+        "ARBOL", "MUNDO", "PERRO", "VACAS", "MOUSE"
         
     ];
     
@@ -362,7 +365,7 @@ do {
                     $palabraUsada = false;
                     $indiceAleatoria = array_rand($coleccionPalabras);
                     $palabraAleatoria = $coleccionPalabras[$indiceAleatoria]; // Accedemos a la palabra aleatoria
-                    
+            
                     foreach ($coleccionPartidas as $palabraNueva) {
                         if ($palabraNueva["palabraWordix"] === $palabraAleatoria && $palabraNueva["jugador"] == $pedirNombre) {
                             $palabraUsada = true;
