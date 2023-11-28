@@ -138,28 +138,33 @@ function datosPartida($numPartida, $partidas) {
 
  //Consigna 8
 /**
- * @param array $collecPartida
+ * @param array $coleccPartida
  * @param string $jugador
  * @return int
  */
-function primerPartida($collecPartida,$jugador){
+function primerPartida($coleccPartida,$jugador){
     $i=0;
     $vic=false;
-    foreach($collecPartida as $elemento){
-        
+    $jugadorVictoria=array("palabraWordix" => "", "jugador" => "", "intentos" => 0, "puntaje" => 0);
+    foreach($coleccPartida as $elemento){
+        $i++;
         if($elemento["jugador"]==$jugador && $elemento["puntaje"]>0){
             $vic=true;
+            $jugadorVictoria["palabraWordix"]=$elemento["palabraWordix"];
+            $jugadorVictoria["jugador"]=$elemento["jugador"];
+            $jugadorVictoria["intentos"]=$elemento["intentos"];
+            $jugadorVictoria["puntaje"]=$elemento["puntaje"];
             break;
         }
-        $i++;
+        
     }
     
     if($vic){
         $partidaGanada="******************\n".
-            "Partida WORDIX ". ($i).": palabra " . $collecPartida[$i]["palabraWordix"]."\n".
-            "Jugador: ". $collecPartida[$i]["jugador"]. "\n".
-            "Puntaje: ".$collecPartida[$i]["puntaje"]."\n".
-            "Intento: Adivinó la palabra en ". $collecPartida[$i]["intentos"]." intentos \n".
+            "Partida WORDIX ". ($i).": palabra " . $jugadorVictoria["palabraWordix"]."\n".
+            "Jugador: ". $jugadorVictoria["jugador"]. "\n".
+            "Puntaje: ".$jugadorVictoria["puntaje"]."\n".
+            "Intento: Adivinó la palabra en ". $jugadorVictoria["intentos"]." intentos \n".
             "******************\n";
     }
     else{
@@ -379,9 +384,9 @@ do {
             echo $respuesta; 
                 break;
         case 4:
-            $nombre=solicitarJugador();
-            $p=cargarPartidas();
-            $primeraVic=primerPartida($p, $nombre);
+            $pedirNombre = solicitarJugador();
+            
+            $primeraVic=primerPartida($coleccionPartidas, $pedirNombre);
             echo($primeraVic);
             break;
         case 5:
