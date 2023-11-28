@@ -1,11 +1,12 @@
-**#wordix**
+# wordix
+
 Juego Wordix desarrollado en Introducción a la Programación (FAI)
 
-**#Materia 2023**
+# Materia 2023
 
 Tecnicatura en Desarrollo Web
 
-**#Integrantes del Grupo**
+# Integrantes del Grupo
 
 **Sanchez, TOMAS** - Legajo: FAI-4494 - mail: tomas.sanchez2004@est.fi.uncoma.edu.ar - github: tomisanchezz
 
