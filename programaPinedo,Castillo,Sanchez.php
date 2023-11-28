@@ -103,27 +103,22 @@ function seleccionarOpcion(){
  * @param int $cantidadPartidas, $numPartida
  * @return $infoPartida
  */
-function datosPartida($numPartida) {
-    $todasLasPartidas=cargarPartidas();
-    if($numPartida>0 && $numPartida<=count($todasLasPartidas)){
-        $menos=1;
-        $datosDePartida= $todasLasPartidas[$numPartida - $menos];
-        $infoPartida="******************\n"."Partida WORDIX $numPartida: palabra ". $datosDePartida["palabraWordix"]. "\n".
-        "Jugador: " . $datosDePartida["jugador"]. "\n".
-        "Puntaje: ". $datosDePartida["puntaje"]. " puntos \n";
-        if($datosDePartida["puntaje"]>0){
-            $infoPartida.="Adivinó la palabra en ".$datosDePartida["intentos"]." intentos \n"."******************\n";
-        }
-        else{
-            $infoPartida.="No adivinó la palabra"."\n******************\n";
-        }
-       }
-
-    else{
-        $infoPartida="El numero de partida no existe.";
+function datosPartida($numPartida, $partidas) {
+    if ($numPartida >= 0 && $numPartida < count($partidas)) {
+        $datosPartida = $partidas[$numPartida];
+        $respuesta = "*******\n". "Partida Wordix $numPartida: " . "palabra " . $datosPartida["palabraWordix"] . 
+        "\n" . "Jugador: " . $datosPartida["jugador"] . "\n" . "Puntaje: " . $datosPartida["puntaje"] . "\n" . 
+        "Intentos: " . $datosPartida["intentos"] . "\n" . "*******\n";
+    } else {
+        $respuesta = "Error: Número de partida inválido.\n";
     }
-    return $infoPartida;
+    return $respuesta;
 }
+
+
+
+
+
 
 
 /**
@@ -353,32 +348,35 @@ do {
             }
             break;
 
-        case 2: 
-            $pedirNombre = solicitarJugador();
-            $palabrasDisponibles = cargarColeccionPalabras();
-            $indiceAleatoria = array_rand($palabrasDisponibles);
-            $palabraAleatoria = $palabrasDisponibles[$indiceAleatoria]; // Accedemos a la palabra aleatoria
-            $partida = jugarWordix($palabraAleatoria, $pedirNombre);
-            $coleccionPartidas[] = $partida;
-
-            break;
-        case 3: 
-                $partidasDisponibles= count(cargarPartidas());
-                echo("Ingrese el numero de la partida que quiere ver entre 1 y $partidasDisponibles: ");
-                $numPartida=trim(fgets(STDIN));
-                $datoPartida3=  datosPartida($numPartida);
-                echo $datoPartida3;
-    
-                if($datoPartida3 == "El numero de partida no existe."){
-                    do{
-                        echo("Ingrese el numero de la partida que quiere ver: ");
-                $numPartida=trim(fgets(STDIN));
-                $datoPartida3=  datosPartida($numPartida);
-                echo $datoPartida3;
-                    }while($datoPartida3 =="El numero de partida no existe.");
+            case 2:
+                $pedirNombre = solicitarJugador();
+                $palabrasDisponibles = cargarColeccionPalabras();
+                $palabraUsada = true;
+                while ($palabraUsada) {
+                    $palabraUsada = false;
+                    $indiceAleatoria = array_rand($palabrasDisponibles);
+                    $palabraAleatoria = $palabrasDisponibles[$indiceAleatoria]; // Accedemos a la palabra aleatoria
+            
+                    foreach ($coleccionPartidas as $palabraNueva) {
+                        if ($palabraNueva["palabraWordix"] === $palabraAleatoria && $palabraNueva["jugador"] == $pedirNombre) {
+                            $palabraUsada = true;
+                            break;
+                        }
+                    }
+                    if (!$palabraUsada) {
+                        $partida = jugarWordix($palabraAleatoria, $pedirNombre);
+                        $coleccionPartidas[] = $partida;
+                    }
                 }
-    
-    
+                print_r($coleccionPartidas);
+                break;
+        case 3: 
+            $partidasDisponibles = count($coleccionPartidas);
+            echo "Ingrese el numero de partida que desea ver (entre 1 y $partidasDisponibles)";
+            $numPartida = (int)trim(fgets(STDIN));
+            $numPartida = $numPartida - 1;
+            $respuesta = datosPartida($numPartida , $coleccionPartidas);
+            echo $respuesta; 
                 break;
         case 4:
             $nombre=solicitarJugador();
