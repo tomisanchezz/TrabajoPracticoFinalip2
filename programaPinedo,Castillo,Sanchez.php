@@ -43,7 +43,7 @@ function cargarPartidas(){
 
     //se cargan las partidas dependiendo el indice
     $collecPartida[0]= array("palabraWordix" => "TINTO", "jugador" => "valentina", "intentos" => 1, "puntaje" => 14);
-    $collecPartida[1]= array("palabraWordix" => "TINTO", "jugador" => "valentina", "intentos" => 6, "puntaje" => 0);  
+    $collecPartida[1]= array("palabraWordix" => "MOUSE", "jugador" => "valentina", "intentos" => 6, "puntaje" => 0);  
     $collecPartida[2]= array("palabraWordix" => "PERRO", "jugador" => "maria", "intentos" => 4, "puntaje" => 13); 
     $collecPartida[3]= array("palabraWordix" => "ARBOL", "jugador" => "pedro", "intentos" => 3, "puntaje" => 13); 
     $collecPartida[4]= array("palabraWordix" => "GATOS", "jugador" => "tomas", "intentos" => 6, "puntaje" => 0); 
