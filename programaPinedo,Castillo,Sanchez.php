@@ -71,10 +71,10 @@ function seleccionarOpcion(){
     $menu="
     1) Jugar al wordix con una palabra elegida \n
     2) Jugar al wordix con una palara aleatoria\n
-    3) Mostrar una collecPartida\n
-    4) Mostrar la primer collecPartida ganadora\n
+    3) Mostrar una partida\n
+    4) Mostrar la primer partida ganadora\n
     5) Mostrar resumen del jugador\n
-    6) Mostrar listado de partidas ordenads por jugador y por palabra\n
+    6) Mostrar listado de partidas ordenadas por jugador y por palabra\n
     7) Agregar una palabra de 5 letras a wordix\n
     8) Salir\n
     ";
@@ -371,51 +371,66 @@ do {
 
             if(!$palabrasTerminadas){
             
-            $numeroRepetido = true;
-            while ($numeroRepetido) {
-                echo "Ingrese numero de palabra entre 1 y " . $cantDePalabras . " :";
-                $numeroPalabras = solicitarNumeroEntre(1, $cantDePalabras);
-                $numeroPalabras = $numeroPalabras - 1;
-                $palabra = $coleccionPalabras[$numeroPalabras];
-                $numeroRepetido = false;
-                
-                if (!$numeroRepetido) {
-                    $palabrasRep[] = ["numeroPalabra" => $numeroPalabras, "jugador" => $pedirNombre];
-                    $partida = jugarWordix($coleccionPalabras[$numeroPalabras], $pedirNombre);
-                    $coleccionPartidas[] = $partida;
-                }
-            }
-        }
-            break;
-        
-            case 2:
-                $pedirNombre = solicitarJugador();
-                $coleccionPalabras = cargarColeccionPalabras();
-                $palabraUsada = true;
-                $cantDePalabras=count($coleccionPalabras);
-                $cantDePalabrasRep=count($palabrasRep);
-                $palabrasTerminadas = opcionesFinales($coleccionPalabras, $pedirNombre,$coleccionPartidas);
-
-                if(!$palabrasTerminadas){
-                    
-                while ($palabraUsada) {
-                    $palabraUsada = false;
-                    $indiceAleatoria = array_rand($coleccionPalabras);
-                    $palabraAleatoria = $coleccionPalabras[$indiceAleatoria]; // Accedemos a la palabra aleatoria
-                    foreach ($coleccionPartidas as $palabraNueva) {
-                        if ($palabraNueva["palabraWordix"] === $palabraAleatoria && $palabraNueva["jugador"] == $pedirNombre) {
-                            $palabraUsada = true;
+                $numeroRepetido = true;
+                while ($numeroRepetido) {
+                    echo "Ingrese numero de palabra entre 1 y " . $cantDePalabras . " :";
+                    $numeroPalabras = solicitarNumeroEntre(1, $cantDePalabras);
+                    $numeroPalabras = $numeroPalabras - 1;
+                    $palabra = $coleccionPalabras[$numeroPalabras];
+                    $numeroRepetido = false;
+                    foreach ($palabrasRep as $jugada) {
+                        if ($jugada['numeroPalabra'] === $numeroPalabras && $jugada['jugador'] === $pedirNombre) {
+                            echo "Esta combinación de jugador y palabra ya ha sido jugada.\n";
+                            $numeroRepetido = true;
                             break;
                         }
                     }
-                    
-                    if (!$palabraUsada) {
-                        $palabrasJugadas[] = $indiceAleatoria;
-                        $collecPartida = jugarWordix($coleccionPalabras[$indiceAleatoria], $pedirNombre);
-                        $coleccionPartidas[] = $collecPartida;
+                    foreach ($coleccionPartidas as $partidasYaIngresadas){
+                        if($partidasYaIngresadas["jugador"] === $pedirNombre && $partidasYaIngresadas["palabraWordix"] === $palabra){
+                            echo "Esta combinación de jugador y palabra ya ha sido jugada.\n";
+                            $numeroRepetido = true;
+                            break;
+                        }
+
                     }
-                    break;
+                    if (!$numeroRepetido) {
+                        $palabrasRep[] = ["numeroPalabra" => $numeroPalabras, "jugador" => $pedirNombre];
+                        $partida = jugarWordix($coleccionPalabras[$numeroPalabras], $pedirNombre);
+                        $coleccionPartidas[] = $partida;
+                    }
                 }
+            }
+            break;
+        
+        case 2:
+            $pedirNombre = solicitarJugador();
+            $coleccionPalabras = cargarColeccionPalabras();
+            $palabraUsada = true;
+            $cantDePalabras=count($coleccionPalabras);
+            $cantDePalabrasRep=count($palabrasRep);
+            $palabrasTerminadas = opcionesFinales($coleccionPalabras, $pedirNombre,$coleccionPartidas);
+
+                if(!$palabrasTerminadas){
+                    
+                    while ($palabraUsada) {
+                        $palabraUsada = false;
+                        $indiceAleatoria = array_rand($coleccionPalabras);
+                        $palabraAleatoria = $coleccionPalabras[$indiceAleatoria]; // Accedemos a la palabra aleatoria
+                        foreach ($coleccionPartidas as $palabraNueva) {
+                            if ($palabraNueva["palabraWordix"] === $palabraAleatoria && $palabraNueva["jugador"] == $pedirNombre) {
+                                echo "\nYa jugó con esta palabra, le daremos otra.\n";
+                                $palabraUsada = true;
+                                break;
+                            }
+                        }
+                    }
+                    
+                        if (!$palabraUsada) {
+                            $palabrasJugadas[] = ["numeroPalabra" => $indiceAleatoria, "jugador" => $pedirNombre];
+                            $collecPartida = jugarWordix($coleccionPalabras[$indiceAleatoria], $pedirNombre);
+                            $coleccionPartidas[] = $collecPartida;
+                        }
+                        break;
                 }
                 break;
         case 3: 
