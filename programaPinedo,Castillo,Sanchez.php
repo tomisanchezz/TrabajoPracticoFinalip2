@@ -148,10 +148,8 @@ function datosPartida($numPartida, $partidas) {
  */
 function primerPartida($coleccPartida,$jugador){
     //incializacion de variables
-
     $i=0;
     $vic=false;
-
     //Array para almacenar la información de la primera partida ganada por el jugador
     $jugadorVictoria=array("palabraWordix" => "", "jugador" => "", "intentos" => 0, "puntaje" => 0);
     
@@ -181,7 +179,7 @@ function primerPartida($coleccPartida,$jugador){
             "******************\n";
     }
     else{
-        $partidaGanada="El jugador $jugador no ganó ninguna collecPartida.";
+        $partidaGanada="El jugador $jugador no ganó ninguna Partida.";
     }
 
     // Retorna la información de la partida ganada o el mensaje de que no se encontró ninguna
@@ -279,7 +277,7 @@ function resumenJugador($nombreDeJugador, $collecPartida) {
 /**
  * Este modulo solicita al usuario ingresar un nombre donde realiza validaciones para que el nombre ingresado sea valido. Transforma la palabra ingresadas a minusculas.
  * @param string $nombre
- * @return strin  $nombre
+ * @return string  $nombre
  */
 function solicitarJugador(){
     //string $nombre
@@ -323,7 +321,7 @@ function solicitarJugador(){
 /**
  * Modulo 11.
  * Ordena la coleccion de partidas segun el nombre del jugador y luego la palabra, dependiendo de la funcion cmp()
- * @param array $collec
+ * @param array $collecPartida
  */
 
  function partidasOrdenadas($collecPartida){
@@ -576,7 +574,7 @@ do {
                             $coleccionPalabras[] = $nuevaPalabra;
                             echo "¡Felicidades! Tu palabra se guardó correctamente.\n";
                         } else {
-                            // La palabra ya existe, mostrar un mensaje de advertencia:
+                            // La palabra ya existe
                             echo "Error: La palabra ya existe en la colección.\n";
                         }
                         break;
