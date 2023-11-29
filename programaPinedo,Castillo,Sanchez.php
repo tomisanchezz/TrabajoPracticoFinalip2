@@ -110,9 +110,9 @@ function datosPartida($numPartida, $partidas) {
         $datosPartida = $partidas[$numPartida];
         
         // Construye la respuesta detallada de la partida
-        $respuesta = "*******\n" . "Partida Wordix $numPartida: " . "Palabra: " . $datosPartida["palabraWordix"] . 
+        $respuesta = "***************************************************\n" . "Partida Wordix $numPartida: " . "Palabra: " . $datosPartida["palabraWordix"] . 
         "\n" . "Jugador: " . $datosPartida["jugador"] . "\n" . "Puntaje: " . $datosPartida["puntaje"] . "\n" . 
-        "Intentos: " . $datosPartida["intentos"] . "\n" . "*******\n";
+        "Intentos: " . $datosPartida["intentos"] . "\n" . "***************************************************\n";
     } else {
         // Si el número de partida es inválido, devuelve un mensaje de error
         $respuesta = "Error: Número de partida inválido.\n";
