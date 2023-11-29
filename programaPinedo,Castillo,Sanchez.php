@@ -378,17 +378,12 @@ do {
                     $numeroPalabras = $numeroPalabras - 1;
                     $palabra = $coleccionPalabras[$numeroPalabras];
                     $numeroRepetido = false;
-                    foreach ($palabrasRep as $jugada) {
-                        if ($jugada['numeroPalabra'] === $numeroPalabras && $jugada['jugador'] === $pedirNombre) {
-                            echo "Esta combinación de jugador y palabra ya ha sido jugada.\n";
-                            $numeroRepetido = true;
-                            break;
-                        }
-                    }
+                    
                     foreach ($coleccionPartidas as $partidasYaIngresadas){
                         if($partidasYaIngresadas["jugador"] === $pedirNombre && $partidasYaIngresadas["palabraWordix"] === $palabra){
-                            echo "Esta combinación de jugador y palabra ya ha sido jugada.\n";
                             $numeroRepetido = true;
+                            echo "Esta combinación de jugador y palabra ya ha sido jugada.\n";
+                            
                             break;
                         }
 
