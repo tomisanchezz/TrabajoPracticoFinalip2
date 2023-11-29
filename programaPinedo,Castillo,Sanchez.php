@@ -555,18 +555,31 @@ do {
                     $partidasOrdenadas = partidasOrdenadas($coleccionPartidas);
                     break;
                 
-                case 7:
-                    // Opción para agregar una palabra de 5 letras a Wordix:
-                
-                    // Leer la nueva palabra de 5 letras ingresada por el usuario:
-                    $nuevaPalabra = leerPalabra5Letras();
-                
-                    // Agregar la nueva palabra a la colección de palabras:
-                    $coleccionPalabras = agregarPalabra($coleccionPalabras, $nuevaPalabra);
-                
-                    // Mostrar un mensaje de confirmación:
-                    echo "¡Felicidades! Tu palabra se guardó correctamente.\n";
-                    break;
+                    case 7:
+                        // Opción para agregar una palabra de 5 letras a Wordix:
+                    
+                        // Leer la nueva palabra de 5 letras ingresada por el usuario:
+                        $nuevaPalabra = leerPalabra5Letras();
+                    
+                        // Verificar si la palabra ya existe en la colección:
+                        $palabraExistente = false;
+                        foreach ($coleccionPalabras as $palabra) {
+                            if (strcasecmp($palabra, $nuevaPalabra) === 0) {
+                                $palabraExistente = true;
+                                break;
+                            }
+                        }
+                    
+                        // Mostrar mensaje de acuerdo al resultado de la verificación:
+                        if (!$palabraExistente) {
+                            // La palabra no existe, agregarla a la colección:
+                            $coleccionPalabras[] = $nuevaPalabra;
+                            echo "¡Felicidades! Tu palabra se guardó correctamente.\n";
+                        } else {
+                            // La palabra ya existe, mostrar un mensaje de advertencia:
+                            echo "Error: La palabra ya existe en la colección.\n";
+                        }
+                        break;
                 
                 case 8:
                     // Opción para salir del juego:
