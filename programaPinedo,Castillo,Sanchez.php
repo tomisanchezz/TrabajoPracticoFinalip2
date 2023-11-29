@@ -173,12 +173,12 @@ function primerPartida($coleccPartida,$jugador){
 
     // Genera la respuesta en base a si se encontró una partida ganada o no
     if($vic){
-        $partidaGanada="******************\n".
+        $partidaGanada="***************************************************\n".
             "Partida WORDIX ". ($i).": palabra " . $jugadorVictoria["palabraWordix"]."\n".
             "Jugador: ". $jugadorVictoria["jugador"]. "\n".
             "Puntaje: ".$jugadorVictoria["puntaje"]."\n".
             "Intento: Adivinó la palabra en ". $jugadorVictoria["intentos"]." intentos \n".
-            "******************\n";
+            "***************************************************\n";
     }
     else{
         $partidaGanada="El jugador $jugador no ganó ninguna collecPartida.";
@@ -248,7 +248,7 @@ function resumenJugador($nombreDeJugador, $collecPartida) {
     }
 
     // Construcción de la respuesta final
-    $resp1 = "******************\n" .
+    $resp1 = "***************************************************\n" .
         "Jugador: " . $arrayResumen["jugador"] . "\n" .
         "Partidas: " . $arrayResumen["partidas"] . "\n" .
         "Puntaje final: " . $arrayResumen["puntaje"] . "\n" .
@@ -266,7 +266,7 @@ function resumenJugador($nombreDeJugador, $collecPartida) {
     $resp3 = "Adivinadas: \n" . "     Intento 1: " . $arrayResumen["intento1"] . "\n" .
         "     Intento 2: " . $arrayResumen["intento2"] . "\n" . "     Intento 3: " . $arrayResumen["intento3"] . "\n" .
         "     Intento 4: " . $arrayResumen["intento4"] . "\n" . "     Intento 5: " . $arrayResumen["intento5"] . "\n" .
-        "     Intento 6: " . $arrayResumen["intento6"] . "\n" . "******************\n";
+        "     Intento 6: " . $arrayResumen["intento6"] . "\n" . "***************************************************\n";
 
     // Retorna el resumen del jugador como un array con tres elementos
     $arrayRespuesta = [$resp1, $resp2, $resp3];
@@ -531,7 +531,7 @@ do {
                         echo $primeraVic;
                     } else {
                         // Si el usuario no existe, mostrar un mensaje de error:
-                        echo "\nEl usuario ingresado no existe. \n";
+                        echo "\nEl usuario ingresado no existe o no ha jugado ninguna partida. \n";
                     }
                     break;
                 
@@ -543,9 +543,17 @@ do {
                 
                     // Obtener el resumen del jugador y mostrar la información detallada:
                     $resumen = resumenJugador($pedirNombre, $coleccionPartidas);
-                    echo $resumen[0];
-                    echo $resumen[1];
-                    echo $resumen[2];
+                    // Verificar si el usuario existe en las partidas:
+                        $usuarioExiste = usuarioExiste($pedirNombre, $coleccionPartidas);
+                
+                    if ($usuarioExiste) {
+                    // Si el usuario existe, obtener y muestra el resumen del jugador.
+                        echo $resumen[0];
+                        echo $resumen[1];
+                        echo $resumen[2];
+                    } else {
+                        echo "\nEl jugador ingresado no existe o no ha jugado ninguna partida.\n";
+                    }
                     break;
                 
                 case 6:
