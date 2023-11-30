@@ -23,7 +23,10 @@ include_once("wordix.php");
 function cargarColeccionPalabras(){
     
     $coleccionPalabras = [
-        "MUJER", "QUESO"
+        "MUJER", "QUESO", "FUEGO", "CASAS", "RASGO",
+        "GATOS", "GOTAS", "HUEVO", "TINTO", "NAVES",
+        "VERDE", "MELON", "YUYOS", "PIANO", "PISOS", 
+        "ARBOL", "MUNDO", "PERRO", "VACAS", "MOUSE"
     ];
     
     return ($coleccionPalabras);
@@ -179,7 +182,7 @@ function primerPartida($coleccPartida,$jugador){
             "***************************************************\n";
     }
     else{
-        $partidaGanada="El jugador $jugador no ganó ninguna collecPartida.";
+        $partidaGanada="El jugador $jugador no ganó ninguna Partida.";
     }
 
     // Retorna la información de la partida ganada o el mensaje de que no se encontró ninguna
