@@ -189,18 +189,32 @@ function primerPartida($coleccPartida,$jugador){
     return $partidaGanada;
 }
             
-/** Modulo 9
- *  Este modulo genera un resumen detallado en el desempeño de un jugador con todas sus partidas brindando una vision sobre su rendimiento.
- * array arrayResumen es un array asociativo
- * @param string $nombreDeJugador
- * @param array $collecPartida
- * @return array
+/**
+ * Módulo 9
+ * Este módulo genera un resumen detallado en el desempeño de un jugador con todas sus partidas, brindando una visión sobre su rendimiento.
+ * El array $arrayResumen es un array asociativo que contiene información sobre el jugador.
+ *
+ * @param string $nombreDeJugador - Nombre del jugador a analizar.
+ * @param array $collecPartida - Colección de partidas del jugador.
+ * @return array $arrayRespuesta - Resumen detallado del jugador en tres elementos.
  */
 function resumenJugador($nombreDeJugador, $collecPartida) {
-    // Inicialización del array asociativo $arrayResumen para almacenar la información del jugador
-    //array $arrayResumen, $resp1, $resp2, $resp 3
-    //float $porcentajeVictorias
-    $arrayResumen = [
+    $arrayResumen = inicializarArrayResumen();
+    $arrayResumen = procesarPartidas($nombreDeJugador, $collecPartida, $arrayResumen);
+    $resp1 = generarRespuesta1($arrayResumen);
+    $resp2 = generarRespuesta2($arrayResumen);
+    $resp3 = generarRespuesta3($arrayResumen);
+
+    return [$resp1, $resp2, $resp3];
+}
+
+/**
+ * Función para inicializar el array asociativo $arrayResumen.
+ *
+ * @return array - Array inicializado con valores predeterminados.
+ */
+function inicializarArrayResumen() {
+    return [
         "jugador" => "",
         "partidas" => 0,
         "puntaje" => 0,
@@ -212,21 +226,27 @@ function resumenJugador($nombreDeJugador, $collecPartida) {
         "intento5" => 0,
         "intento6" => 0
     ];
+}
 
-    // Recorre las partidas para recopilar información del jugador
+/**
+ * Función para procesar las partidas del jugador y actualizar el arrayResumen.
+ *
+ * @param string $nombreDeJugador - Nombre del jugador a analizar.
+ * @param array $collecPartida - Colección de partidas del jugador.
+ * @param array $arrayResumen - Array asociativo que se actualiza con la información del jugador.
+ * @return array - Array actualizado con la información del jugador.
+ */
+function procesarPartidas($nombreDeJugador, $collecPartida, $arrayResumen) {
     foreach ($collecPartida as $unaPartida) {
-        // Verifica si la partida corresponde al jugador en cuestión
         if ($nombreDeJugador == $unaPartida["jugador"]) {
             $arrayResumen["jugador"] = $nombreDeJugador;
             $arrayResumen["partidas"] += 1;
             $arrayResumen["puntaje"] += $unaPartida["puntaje"];
 
-            // Incrementa el contador de victorias si el puntaje de la partida es mayor que 0
             if ($unaPartida["puntaje"] > 0) {
                 $arrayResumen["victorias"] += 1;
             }
 
-            // Utiliza un switch para contar la frecuencia de cada número de intentos en las partidas del jugador
             switch ($unaPartida["intentos"]) {
                 case 1:
                     $arrayResumen["intento1"] += 1;
@@ -249,34 +269,54 @@ function resumenJugador($nombreDeJugador, $collecPartida) {
             }
         }
     }
+    return $arrayResumen;
+}
 
-    // Construcción de la respuesta final
-    $resp1 = "***************************************************\n" .
+/**
+ * Función para generar la primera parte de la respuesta.
+ *
+ * @param array $arrayResumen - Array asociativo con la información del jugador.
+ * @return string - Primera parte de la respuesta.
+ */
+function generarRespuesta1($arrayResumen) {
+    return "***************************************************\n" .
         "Jugador: " . $arrayResumen["jugador"] . "\n" .
         "Partidas: " . $arrayResumen["partidas"] . "\n" .
         "Puntaje final: " . $arrayResumen["puntaje"] . "\n" .
         "Victorias: " . $arrayResumen["victorias"] . "\n";
-
-    // Calcula y agrega el porcentaje de victorias al resumen, o establece 0% si no hay partidas
-    if ($arrayResumen["partidas"] > 0) {
-        $porcentajeVictorias = $arrayResumen["victorias"] / $arrayResumen["partidas"] * 100;
-        $resp2 = "Porcentaje de victorias: " . $porcentajeVictorias . "%\n";
-    } else {
-        $resp2 = "Porcentaje de victorias: 0% \n";
-    }
-
-    // Agrega la información detallada sobre los intentos de adivinanza al resumen
-    $resp3 = "Adivinadas: \n" . "     Intento 1: " . $arrayResumen["intento1"] . "\n" .
-        "     Intento 2: " . $arrayResumen["intento2"] . "\n" . "     Intento 3: " . $arrayResumen["intento3"] . "\n" .
-        "     Intento 4: " . $arrayResumen["intento4"] . "\n" . "     Intento 5: " . $arrayResumen["intento5"] . "\n" .
-        "     Intento 6: " . $arrayResumen["intento6"] . "\n" . "***************************************************\n";
-
-    // Retorna el resumen del jugador como un array con tres elementos
-    $arrayRespuesta = [$resp1, $resp2, $resp3];
-    return $arrayRespuesta;
 }
 
+/**
+ * Función para generar la segunda parte de la respuesta.
+ *
+ * @param array $arrayResumen - Array asociativo con la información del jugador.
+ * @return string - Segunda parte de la respuesta.
+ */
+function generarRespuesta2($arrayResumen) {
+    if ($arrayResumen["partidas"] > 0) {
+        $porcentajeVictorias = $arrayResumen["victorias"] / $arrayResumen["partidas"] * 100;
+        return "Porcentaje de victorias: " . $porcentajeVictorias . "%\n";
+    } else {
+        return "Porcentaje de victorias: 0% \n";
+    }
+}
 
+/**
+ * Función para generar la tercera parte de la respuesta.
+ *
+ * @param array $arrayResumen - Array asociativo con la información del jugador.
+ * @return string - Tercera parte de la respuesta.
+ */
+function generarRespuesta3($arrayResumen) {
+    return "Adivinadas: \n" .
+        "     Intento 1: " . $arrayResumen["intento1"] . "\n" .
+        "     Intento 2: " . $arrayResumen["intento2"] . "\n" .
+        "     Intento 3: " . $arrayResumen["intento3"] . "\n" .
+        "     Intento 4: " . $arrayResumen["intento4"] . "\n" .
+        "     Intento 5: " . $arrayResumen["intento5"] . "\n" .
+        "     Intento 6: " . $arrayResumen["intento6"] . "\n" .
+        "***************************************************\n";
+}
 
 //MODULO 10
 /**
