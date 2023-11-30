@@ -430,7 +430,7 @@ function usuarioExiste($user, $partidasLista){
 //Declaración de variables:
 //array $palabrasRep, $palabraYaJugada, $palabrasJugadas, $palabrasRep, $palabra, $coleccionPartidas, $coleccionPalabras
 //boolean $opcionElegida, $numeroRepetido, $palabraUsada, $usuarioExiste
-//int $opcion, $cantDePalabras, $numeroPalabras, $cantPalabrasRep, $palbrasJugadas, $partidasDisponibles, $numPartida
+//int $opcion, $cantDePalabras, $numeroPalabras, $palabrasJugadas, $partidasDisponibles, $numPartida
 //string $pedirNombre, $indiceAleatorio,$palabraAleatoria, $palabraNueva,$palabraUsada, $respuesta, $primeraVic, $resumen, $partidasOrdenadas, $nuevaPalabra, $palabraAgregada
 
 //Inicialización de variables:
@@ -452,7 +452,6 @@ do {
         case 1:
             $pedirNombre = solicitarJugador();
             $cantDePalabras = count($coleccionPalabras);
-            $cantPalabrasRep = count($palabrasRep);
 
             $palabrasTerminadas = opcionesFinales($coleccionPalabras, $pedirNombre, $coleccionPartidas);
 
@@ -488,49 +487,33 @@ do {
             break;
         
         case 2:
-            // Opción para jugar Wordix con una palabra aleatoria:
-        
-            // Solicitar el nombre del jugador:
             $pedirNombre = solicitarJugador();
-        
-            // Recargar la colección de palabras:
             $coleccionPalabras = cargarColeccionPalabras();
-        
-            // Inicializar la variable para controlar si la palabra aleatoria ya fue usada:
             $palabraUsada = true;
-        
-            // Obtener la cantidad de palabras disponibles y palabras ya repetidas:
             $cantDePalabras = count($coleccionPalabras);
-            $cantDePalabrasRep = count($palabrasRep);
-        
-            // Verificar si todas las palabras han sido jugadas ya por el jugador:
             $palabrasTerminadas = opcionesFinales($coleccionPalabras, $pedirNombre, $coleccionPartidas);
-        
+
             if (!$palabrasTerminadas) {
                 while ($palabraUsada) {
                     $palabraUsada = false;
-        
-                    // Generar un índice aleatorio para seleccionar una palabra de la colección:
                     $indiceAleatoria = array_rand($coleccionPalabras);
                     $palabraAleatoria = $coleccionPalabras[$indiceAleatoria];
-        
-                    // Verificar si el jugador ya jugó con esa palabra:
-                    foreach ($coleccionPartidas as $palabraNueva) {
+                    $i = 0;
+
+                    while ($i < count($coleccionPartidas) && !$palabraUsada) {
+                        $palabraNueva = $coleccionPartidas[$i];
                         if ($palabraNueva["palabraWordix"] === $palabraAleatoria && $palabraNueva["jugador"] == $pedirNombre) {
                             echo "\nYa jugó con esta palabra, le daremos otra.\n";
                             $palabraUsada = true;
-                            break;
                         }
+                        $i++;
                     }
-                }
-        
-                if (!$palabraUsada) {
-                    // Almacenar el número de palabra y el jugador que la jugó:
-                    $palabrasJugadas[] = ["numeroPalabra" => $indiceAleatoria, "jugador" => $pedirNombre];
-        
-                    // Jugar Wordix con la palabra aleatoria seleccionada:
-                    $collecPartida = jugarWordix($coleccionPalabras[$indiceAleatoria], $pedirNombre);
-                    $coleccionPartidas[] = $collecPartida;
+
+                    if (!$palabraUsada) {
+                        $palabrasJugadas[] = ["numeroPalabra" => $indiceAleatoria, "jugador" => $pedirNombre];
+                        $collecPartida = jugarWordix($coleccionPalabras[$indiceAleatoria], $pedirNombre);
+                        $coleccionPartidas[] = $collecPartida;
+                    }
                 }
             }
             break;
