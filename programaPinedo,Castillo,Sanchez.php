@@ -60,8 +60,6 @@ function cargarPartidas(){
 /** 
  * Modulo 3
  * Esta funcion le visualiza al usuario el menu de seleccion para poder jugar (tiene 7 modos y el 8 es el exit), si el usuario ingresa un numero menor a 1 y mayor a 9 se repite el menu hasta que el usuario ingrese un nuevo numero.
- * @param string $menu
- * @param int $numeroOpcionMenu
  *@return int $numeroOpcionMenu - retorna numero seleccionado del usuario
  */
 function seleccionarOpcion(){
@@ -99,11 +97,13 @@ function seleccionarOpcion(){
 /**
  * Modulo 6.
  * El modulo retorna informacion detallada de una partida especifica la cual permite a los usuarios revisar sus partidas pasadas, identificandola por el numero que ingresa el usuario.
- * @param string $todasLasPartidas, $datosDePartida
- * @param int $cantidadPartidas, $numPartida
+ * @param int $numPartida
+ * @param array $partidas
  * @return string $respuesta - mensaje detallado de partida seleccionada
  */
 function datosPartida($numPartida, $partidas) {
+    //int $cantidadPartidas, $numPartida
+    //array $datosDePartida
     // Verifica que el número de partida sea válido
     if ($numPartida >= 0 && $numPartida < count($partidas)) {
         // Obtiene los datos de la partida seleccionada
@@ -126,8 +126,9 @@ function datosPartida($numPartida, $partidas) {
  * Modulo 7
  * Este modulo tiene la funcion de tomar la palabra nueva que quiere ingresar el usuario, meterla en el array de coleccion de palabras y luego retornar el mismo array pero con la nueva palabra agregada
  * array $coleccionPalabras ya explicado en el cargarColeccionPalabras().
- * @param string $coleccionPalabras, $palabraNueva.
- * @return string array $coleccionPalabras - retorna el array colecionPalabras pero con la nueva palabra
+ * @param array $coleccionPalabras
+ * @param string $palabraNueva.
+ * @return array $coleccionPalabras - retorna el array colecionPalabras pero con la nueva palabra
  */
 
  function agregarPalabra($coleccionPalabras, $palabraNueva){
@@ -191,12 +192,14 @@ function primerPartida($coleccPartida,$jugador){
 /** Modulo 9
  *  Este modulo genera un resumen detallado en el desempeño de un jugador con todas sus partidas brindando una vision sobre su rendimiento.
  * array arrayResumen es un array asociativo
- * @param string $nombreDeJugador, $buscarJugador
- * @param int $partidasJugadas, $victorias, $sumaPuntaje, $porcentajeVictorias
- * @return string $resumenDelJugador - info detallada del jugador
+ * @param string $nombreDeJugador
+ * @param array $collecPartida
+ * @return array
  */
 function resumenJugador($nombreDeJugador, $collecPartida) {
     // Inicialización del array asociativo $arrayResumen para almacenar la información del jugador
+    //array $arrayResumen, $resp1, $resp2, $resp 3
+    //float $porcentajeVictorias
     $arrayResumen = [
         "jugador" => "",
         "partidas" => 0,
@@ -278,8 +281,7 @@ function resumenJugador($nombreDeJugador, $collecPartida) {
 //MODULO 10
 /**
  * Este modulo solicita al usuario ingresar un nombre donde realiza validaciones para que el nombre ingresado sea valido. Transforma la palabra ingresadas a minusculas.
- * @param string $nombre
- * @return strin  $nombre
+ * @return string
  */
 function solicitarJugador(){
     //string $nombre
@@ -323,7 +325,7 @@ function solicitarJugador(){
 /**
  * Modulo 11.
  * Ordena la coleccion de partidas segun el nombre del jugador y luego la palabra, dependiendo de la funcion cmp()
- * @param array $collec
+ * @param array $collecPartida
  */
 
  function partidasOrdenadas($collecPartida){
@@ -408,44 +410,36 @@ do {
     // Switch para manejar las diferentes opciones del menú:
     switch ($opcion) {
         case 1:
-            // Opción para jugar Wordix con una palabra elegida:
-        
-            // Solicitar el nombre del jugador:
             $pedirNombre = solicitarJugador();
-        
-            // Obtener la cantidad de palabras disponibles y palabras ya repetidas:
             $cantDePalabras = count($coleccionPalabras);
             $cantPalabrasRep = count($palabrasRep);
-        
-            // Verificar si todas las palabras han sido jugadas ya por el jugador:
+
             $palabrasTerminadas = opcionesFinales($coleccionPalabras, $pedirNombre, $coleccionPartidas);
-        
+
             if (!$palabrasTerminadas) {
-                // Inicializar la variable para controlar si se repite el número de palabra:
                 $numeroRepetido = true;
-        
+
                 while ($numeroRepetido) {
-                    // Solicitar al usuario el número de palabra entre 1 y la cantidad de palabras disponibles:
                     echo "Ingrese número de palabra entre 1 y $cantDePalabras: ";
                     $numeroPalabras = solicitarNumeroEntre(1, $cantDePalabras);
                     $numeroPalabras = $numeroPalabras - 1;
                     $palabra = $coleccionPalabras[$numeroPalabras];
                     $numeroRepetido = false;
-        
-                    // Verificar si el jugador ya jugó con esa palabra:
-                    foreach ($coleccionPartidas as $partidasYaIngresadas) {
-                        if ($partidasYaIngresadas["jugador"] === $pedirNombre && $partidasYaIngresadas["palabraWordix"] === $palabra) {
+
+                    $i = 0;
+                    
+                    while ($i < count($coleccionPartidas) && !$numeroRepetido) {
+                        $partidaActual = $coleccionPartidas[$i];
+                        if ($partidaActual["jugador"] === $pedirNombre && $partidaActual["palabraWordix"] === $palabra) {
                             $numeroRepetido = true;
                             echo "Esta combinación de jugador y palabra ya ha sido jugada.\n";
-                            break;
+                            
                         }
+                        $i++;
                     }
-        
+
                     if (!$numeroRepetido) {
-                        // Almacenar el número de palabra y el jugador que la jugó:
                         $palabrasRep[] = ["numeroPalabra" => $numeroPalabras, "jugador" => $pedirNombre];
-        
-                        // Jugar Wordix con la palabra seleccionada:
                         $partida = jugarWordix($coleccionPalabras[$numeroPalabras], $pedirNombre);
                         $coleccionPartidas[] = $partida;
                     }
@@ -596,4 +590,4 @@ do {
                 
             
     }
-} while ($opcionElegida == true );
+} while ($opcionElegida);
