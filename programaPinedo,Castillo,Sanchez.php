@@ -23,10 +23,7 @@ include_once("wordix.php");
 function cargarColeccionPalabras(){
     
     $coleccionPalabras = [
-        "MUJER", "QUESO", "FUEGO", "CASAS", "RASGO",
-        "GATOS", "GOTAS", "HUEVO", "TINTO", "NAVES",
-        "VERDE", "MELON", "YUYOS", "PIANO", "PISOS", 
-        "ARBOL", "MUNDO", "PERRO", "VACAS", "MOUSE"
+        "MUJER", "QUESO"
     ];
     
     return ($coleccionPalabras);
@@ -394,7 +391,7 @@ function opcionesFinales($collecionPalabrasFinal, $usuarioFinal, $partidasFinal)
 
         // Verificar si se jugaron todas las palabras
         if($cantPalabrasFinal == $cantPartidasFinal){
-            echo "Ya se jugaron todas las partidas. ";
+            echo "Este usuario ya jugó todas las partidas. ";
             $resultadoFinal = true;
         }
     }
@@ -503,7 +500,6 @@ do {
                     while ($i < count($coleccionPartidas) && !$palabraUsada) {
                         $palabraNueva = $coleccionPartidas[$i];
                         if ($palabraNueva["palabraWordix"] === $palabraAleatoria && $palabraNueva["jugador"] == $pedirNombre) {
-                            echo "\nYa jugó con esta palabra, le daremos otra.\n";
                             $palabraUsada = true;
                         }
                         $i++;
@@ -513,10 +509,12 @@ do {
                         $palabrasJugadas[] = ["numeroPalabra" => $indiceAleatoria, "jugador" => $pedirNombre];
                         $collecPartida = jugarWordix($coleccionPalabras[$indiceAleatoria], $pedirNombre);
                         $coleccionPartidas[] = $collecPartida;
+
                     }
                 }
             }
             break;
+
                 case 3:
                     // Opción para mostrar información de una partida específica:
                 
